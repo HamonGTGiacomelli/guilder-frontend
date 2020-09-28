@@ -1,21 +1,43 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
+import React from "react";
+import { Image, Text } from "react-native";
+import { TouchableOpacity } from "react-native-gesture-handler";
+import HomePage from "./src/page/HomePage";
+import SettingsPage from "./src/page/SettingsPage";
+
+const Stack = createStackNavigator();
+
+const image = require("./assets/settings_icon.png");
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen
+          name="Home"
+          component={HomePage}
+          options={({ navigation }) => ({
+            headerRight: () => (
+              <TouchableOpacity
+                onPress={() => {
+                  navigation.navigate("Settings");
+                }}
+              >
+                <Image
+                  source={image}
+                  style={{
+                    height: 30,
+                    width: 30,
+                    marginEnd: 15,
+                  }}
+                />
+              </TouchableOpacity>
+            ),
+          })}
+        />
+        <Stack.Screen name="Settings" component={SettingsPage} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
