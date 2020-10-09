@@ -1,4 +1,5 @@
-import { Character, UserData } from "../../types/userData";
+import { Character, Table, UserData } from "../../types/userData";
+import { TABLE_GAME_TYPE, TABLE_SESSION_TYPE } from "../../utils/const";
 
 export class GuilderApi {
   getUserData(): UserData {
@@ -14,7 +15,12 @@ export class GuilderApi {
       ],
       userTables: [
         {
-          name: "Table name teste",
+          title: "Table name teste",
+          description: "Description here",
+          gameType: TABLE_GAME_TYPE.NARRATIVE,
+          language: "pt_BR",
+          sessionType: TABLE_SESSION_TYPE.LOCAL,
+          time: "22:00/00:00",
           playersNum: 2,
           playersMaxNum: 5,
         },
@@ -23,6 +29,10 @@ export class GuilderApi {
   }
 
   saveCharacter(chracter: Character) {
+    return { success: true };
+  }
+
+  saveTable(table: Table) {
     return { success: true };
   }
 }
