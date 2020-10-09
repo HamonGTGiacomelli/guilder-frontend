@@ -1,6 +1,8 @@
 export type Character = {
   name: string;
-  table: Table;
+  characterFunction: string;
+  system: string;
+  table: Table | undefined;
 };
 
 export type Table = {

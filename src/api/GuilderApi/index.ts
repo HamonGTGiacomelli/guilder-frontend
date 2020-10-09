@@ -1,4 +1,4 @@
-import { UserData } from "../../types/userData";
+import { Character, UserData } from "../../types/userData";
 
 export class GuilderApi {
   getUserData(): UserData {
@@ -7,6 +7,8 @@ export class GuilderApi {
       userCharacters: [
         {
           name: "Chracter name test 1",
+          characterFunction: "Dano Mágico",
+          system: "Padrão",
           table: undefined,
         },
       ],
@@ -18,5 +20,9 @@ export class GuilderApi {
         },
       ],
     };
+  }
+
+  saveCharacter(chracter: Character) {
+    return { success: true };
   }
 }
