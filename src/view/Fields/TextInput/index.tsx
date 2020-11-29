@@ -15,6 +15,7 @@ type Props = {
   setValue: (value: string) => void;
   enabled?: boolean;
   keyboardType?: KeyboardTypeOptions;
+  secureTextEntry?: boolean;
 };
 
 const wrapperStyles: StyleProp<ViewStyle> = {
@@ -28,7 +29,14 @@ const labelStyles: StyleProp<TextStyle> = {
 };
 
 const TextField: React.FC<Props> = (props) => {
-  const { value, setValue, label, enabled, keyboardType } = props;
+  const {
+    value,
+    setValue,
+    label,
+    enabled,
+    keyboardType,
+    secureTextEntry,
+  } = props;
   return (
     <View style={wrapperStyles}>
       <Text style={labelStyles}>{label}</Text>
@@ -39,6 +47,7 @@ const TextField: React.FC<Props> = (props) => {
         style={{ height: 40, borderBottomWidth: 1 }}
         onChangeText={(text) => setValue(text)}
         value={value}
+        secureTextEntry={secureTextEntry}
       />
     </View>
   );

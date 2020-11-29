@@ -5,6 +5,7 @@ import { Image, Text } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import CharacterPage from "./src/page/CharacterPage";
 import HomePage from "./src/page/HomePage";
+import LoginPage from "./src/page/LoginPage";
 import SettingsPage from "./src/page/SettingsPage";
 import TablePage from "./src/page/TablePage";
 
@@ -16,6 +17,7 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
+        <Stack.Screen name="Login" component={LoginPage} />
         <Stack.Screen
           name="Home"
           component={HomePage}

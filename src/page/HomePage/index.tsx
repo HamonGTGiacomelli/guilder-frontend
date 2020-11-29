@@ -16,8 +16,6 @@ const homePageStyle = {
   height: "100%",
 };
 
-const floatingButton = {};
-
 const HomePage: React.FC<Props> = ({ navigation }) => {
   const guilderApi = new GuilderApi();
   const { userCharacters, userTables } = guilderApi.getUserData();

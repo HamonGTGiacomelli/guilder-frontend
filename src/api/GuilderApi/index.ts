@@ -1,7 +1,21 @@
+import Axios, { AxiosInstance } from "axios";
 import { Character, Table, UserData } from "../../types/userData";
 import { TABLE_GAME_TYPE, TABLE_SESSION_TYPE } from "../../utils/const";
 
 export class GuilderApi {
+  api: AxiosInstance;
+
+  constructor() {
+    this.api = Axios.create({ baseURL: "http://localhost:3333" });
+  }
+
+  login(username: string, password: string) {
+    return this.api.post("/authentication", {
+      username,
+      password,
+    });
+  }
+
   getUserData(): UserData {
     return {
       userName: "Hamon",
