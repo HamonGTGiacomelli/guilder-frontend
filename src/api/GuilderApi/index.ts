@@ -1,12 +1,17 @@
 import Axios, { AxiosInstance } from "axios";
-import { Character, Table, UserData } from "../../types/userData";
-import { TABLE_GAME_TYPE, TABLE_SESSION_TYPE } from "../../utils/const";
+import { useSelector } from "react-redux";
+import { getAuthenticationToken } from "../../reducer/selectors/auth";
+import { Character, Table } from "../../types/userData";
 
 export class GuilderApi {
   api: AxiosInstance;
 
   constructor() {
     this.api = Axios.create({ baseURL: "http://localhost:3333" });
+  }
+
+  getAuth() {
+    return useSelector(getAuthenticationToken);
   }
 
   login(username: string, password: string) {
@@ -16,30 +21,26 @@ export class GuilderApi {
     });
   }
 
-  getUserData(): UserData {
-    return {
-      userName: "Hamon",
-      userCharacters: [
-        {
-          name: "Chracter name test 1",
-          characterFunction: "Dano Mágico",
-          system: "Padrão",
-          table: undefined,
-        },
-      ],
-      userTables: [
-        {
-          title: "Table name teste",
-          description: "Description here",
-          gameType: TABLE_GAME_TYPE.NARRATIVE,
-          language: "pt_BR",
-          sessionType: TABLE_SESSION_TYPE.LOCAL,
-          time: "22:00/00:00",
-          playersNum: 2,
-          playersMaxNum: 5,
-        },
-      ],
-    };
+  createUser(
+    username: string,
+    password: string,
+    firstName: string,
+    lastName: string
+  ) {
+    return this.api.post("/register", {
+      username,
+      password,
+      firstName,
+      lastName,
+    });
+  }
+
+  getUserData() {
+    return this.api.get("/user", {
+      headers: {
+        Authorization: this.getAuth(),
+      },
+    });
   }
 
   saveCharacter(chracter: Character) {

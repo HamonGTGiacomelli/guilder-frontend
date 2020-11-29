@@ -1,7 +1,9 @@
 import { StackNavigationProp } from "@react-navigation/stack";
 import React, { useState } from "react";
 import { Alert, Button, StyleProp, View, ViewStyle } from "react-native";
+import { useSelector } from "react-redux";
 import { GuilderApi } from "../../api/GuilderApi";
+import { getAuthenticationToken } from "../../reducer/selectors/auth";
 import TextInput from "../../view/Fields/TextInput";
 
 type Props = {
@@ -18,6 +20,10 @@ const LoginPage: React.FC<Props> = (props) => {
   const { navigation } = props;
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const auth = useSelector(getAuthenticationToken);
+  if (auth && auth != "") {
+    navigation.replace("Home");
+  }
 
   const onLoginClicked = () => {
     const api = new GuilderApi();

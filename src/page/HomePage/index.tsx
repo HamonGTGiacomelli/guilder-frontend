@@ -1,11 +1,10 @@
 import { StackNavigationProp } from "@react-navigation/stack";
 import React from "react";
-import { Button, StyleSheet, View } from "react-native";
+import { Button, View } from "react-native";
 import { GuilderApi } from "../../api/GuilderApi";
 import * as _ from "lodash";
-import CharacterCard from "../../view/Card/CharacterCard";
-import TableCard from "../../view/Card/TableCard";
-import { Character, Table } from "../../types/userData";
+import { useSelector } from "react-redux";
+import { getAuthenticationToken } from "../../reducer/selectors/auth";
 
 type Props = {
   navigation: StackNavigationProp<any>;
@@ -18,16 +17,18 @@ const homePageStyle = {
 
 const HomePage: React.FC<Props> = ({ navigation }) => {
   const guilderApi = new GuilderApi();
-  const { userCharacters, userTables } = guilderApi.getUserData();
+  guilderApi.getUserData().then((response) => {
+    console.log({ response });
+  });
 
   return (
     <View style={homePageStyle}>
-      {_.map(userCharacters, (character: Character, index: number) => {
+      {/* {_.map(userCharacters, (character: Character, index: number) => {
         return <CharacterCard key={index} character={character} />;
       })}
       {_.map(userTables, (table: Table, index: number) => {
         return <TableCard key={index} table={table} />;
-      })}
+      })} */}
       <View
         style={{
           position: "absolute",
