@@ -19,6 +19,7 @@ import { PersistGate } from "redux-persist/integration/react";
 const persistConfig = {
   key: "root",
   storage,
+  whitelist: ["authentication"],
 };
 const persistedReducer = persistReducer(persistConfig, reducers);
 const store = createStore(persistedReducer);
@@ -30,33 +31,12 @@ const image = require("./assets/settings_icon.png");
 export default function App() {
   return (
     <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
+      <PersistGate persistor={persistor}>
         <NavigationContainer>
           <Stack.Navigator>
             <Stack.Screen name="Login" component={LoginPage} />
             <Stack.Screen name="Register" component={RegisterPage} />
-            <Stack.Screen
-              name="Home"
-              component={HomePage}
-              options={({ navigation }) => ({
-                headerRight: () => (
-                  <TouchableOpacity
-                    onPress={() => {
-                      navigation.navigate("Settings");
-                    }}
-                  >
-                    <Image
-                      source={image}
-                      style={{
-                        height: 30,
-                        width: 30,
-                        marginEnd: 15,
-                      }}
-                    />
-                  </TouchableOpacity>
-                ),
-              })}
-            />
+            <Stack.Screen name="Home" component={HomePage} />
             <Stack.Screen name="Settings" component={SettingsPage} />
             <Stack.Screen name="Character" component={CharacterPage} />
             <Stack.Screen name="Table" component={TablePage} />

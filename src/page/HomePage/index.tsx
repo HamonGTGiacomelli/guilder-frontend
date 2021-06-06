@@ -1,13 +1,18 @@
 import { StackNavigationProp } from "@react-navigation/stack";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Button, View } from "react-native";
 import { GuilderApi } from "../../api/GuilderApi";
 import * as _ from "lodash";
 import { useSelector } from "react-redux";
 import { getAuthenticationToken } from "../../reducer/selectors/auth";
+import CharacterCard from "../../view/Card/CharacterCard";
+import { Character, Table } from "../../types/userData";
+import TableCard from "../../view/Card/TableCard";
+import { RouteProp } from "@react-navigation/native";
 
 type Props = {
   navigation: StackNavigationProp<any>;
+  route: any;
 };
 
 const homePageStyle = {
@@ -15,20 +20,33 @@ const homePageStyle = {
   height: "100%",
 };
 
-const HomePage: React.FC<Props> = ({ navigation }) => {
-  const guilderApi = new GuilderApi();
-  guilderApi.getUserData().then((response) => {
-    console.log({ response });
-  });
+const HomePage: React.FC<Props> = ({ navigation, route }) => {
+  const token = useSelector(getAuthenticationToken);
+  const guilderApi = new GuilderApi(token);
+  const [isLoading, setIsLoading] = useState(true);
+  const [user, setUser] = useState({ characters: [], rpgTables: [] });
+
+  const reloadPage = () => {
+    guilderApi.getUserData().then((response) => {
+      setUser(response.data.user);
+    });
+  };
+
+  if (isLoading) {
+    guilderApi.getUserData().then((response) => {
+      setIsLoading(false);
+      setUser(response.data.user);
+    });
+  }
 
   return (
     <View style={homePageStyle}>
-      {/* {_.map(userCharacters, (character: Character, index: number) => {
+      {_.map(user.characters, (character: Character, index: number) => {
         return <CharacterCard key={index} character={character} />;
       })}
-      {_.map(userTables, (table: Table, index: number) => {
+      {_.map(user.rpgTables, (table: Table, index: number) => {
         return <TableCard key={index} table={table} />;
-      })} */}
+      })}
       <View
         style={{
           position: "absolute",
@@ -48,7 +66,7 @@ const HomePage: React.FC<Props> = ({ navigation }) => {
           <Button
             title="Adicionar Mesa"
             onPress={() => {
-              navigation.navigate("Table");
+              navigation.navigate("Table", reloadPage);
             }}
           ></Button>
         </View>

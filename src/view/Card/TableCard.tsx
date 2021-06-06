@@ -9,11 +9,11 @@ type Props = {
 
 const TableCard: React.FC<Props> = (props) => {
   const { table } = props;
-  const { title, playersMaxNum, playersNum } = table;
+  const { name } = table;
 
   return (
     <Card>
-      <Text>{`${title} (${playersNum}/${playersMaxNum})`}</Text>
+      <Text>{`${name}`}</Text>
     </Card>
   );
 };

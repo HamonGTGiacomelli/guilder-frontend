@@ -5,9 +5,15 @@ import { Character, Table } from "../../types/userData";
 
 export class GuilderApi {
   api: AxiosInstance;
+  token: string;
 
-  constructor() {
-    this.api = Axios.create({ baseURL: "http://localhost:3333" });
+  constructor(token?: string) {
+    this.api = Axios.create({ baseURL: "http://192.168.100.132:3333" });
+    if (token) {
+      this.token = token;
+    } else {
+      this.token = "";
+    }
   }
 
   getAuth() {
@@ -38,16 +44,24 @@ export class GuilderApi {
   getUserData() {
     return this.api.get("/user", {
       headers: {
-        Authorization: this.getAuth(),
+        Authorization: this.token,
       },
     });
   }
 
   saveCharacter(chracter: Character) {
-    return { success: true };
+    return this.api.post("/character", chracter, {
+      headers: {
+        Authorization: this.token,
+      },
+    });
   }
 
   saveTable(table: Table) {
-    return { success: true };
+    return this.api.post("/rpgTable", table, {
+      headers: {
+        Authorization: this.token,
+      },
+    });
   }
 }

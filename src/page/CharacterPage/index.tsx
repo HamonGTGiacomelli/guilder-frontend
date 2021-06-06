@@ -1,8 +1,9 @@
 import { StackNavigationProp } from "@react-navigation/stack";
 import React, { useState } from "react";
 import { View, StyleProp, ViewStyle, Button, Alert } from "react-native";
+import { useSelector } from "react-redux";
 import { GuilderApi } from "../../api/GuilderApi";
-import SelectOneInput from "../../view/Fields/SelectOneInput";
+import { getAuthenticationToken } from "../../reducer/selectors/auth";
 import TextField from "../../view/Fields/TextInput";
 
 type Props = {
@@ -15,28 +16,31 @@ const wrapperStyles: StyleProp<ViewStyle> = {
   padding: 15,
 };
 
-const systems = [
-  { value: "Teste1", label: "Teste 1" },
-  { value: "Teste2", label: "Teste 2" },
-  { value: "Teste3", label: "Teste 3" },
-];
+// const systems = [
+//   { value: "Teste1", label: "Teste 1" },
+//   { value: "Teste2", label: "Teste 2" },
+//   { value: "Teste3", label: "Teste 3" },
+// ];
 
-const functions = [
-  { value: "Dano Físico", label: "Dano Físico" },
-  { value: "Dano Mágico", label: "Dano Mágico" },
-  { value: "Suporte", label: "Suporte" },
-  { value: "Tanque", label: "Tanque" },
-];
+// const functions = [
+//   { value: "Dano Físico", label: "Dano Físico" },
+//   { value: "Dano Mágico", label: "Dano Mágico" },
+//   { value: "Suporte", label: "Suporte" },
+//   { value: "Tanque", label: "Tanque" },
+// ];
 
 const CharacterPage: React.FC<Props> = (props) => {
   const { navigation } = props;
+  const token = useSelector(getAuthenticationToken);
   const [characterName, setCharacterName] = useState("");
-  const [characterSystem, setCharacterSystem] = useState(systems[0].value);
-  const [characterFunction, setCharacterFunction] = useState(
-    functions[0].value
-  );
+  const [characterDescription, setCharacterDescription] = useState("");
+  const [chartacterBackground, setChartacterBackground] = useState("");
+  // const [characterSystem, setCharacterSystem] = useState(systems[0].value);
+  // const [characterFunction, setCharacterFunction] = useState(
+  //   functions[0].value
+  // );
 
-  const guilderApi = new GuilderApi();
+  const guilderApi = new GuilderApi(token);
 
   return (
     <View style={wrapperStyles}>
@@ -45,7 +49,18 @@ const CharacterPage: React.FC<Props> = (props) => {
         value={characterName}
         setValue={setCharacterName}
       />
-      <SelectOneInput
+
+      <TextField
+        label="Description"
+        value={characterDescription}
+        setValue={setCharacterDescription}
+      />
+      <TextField
+        label="Background"
+        value={chartacterBackground}
+        setValue={setChartacterBackground}
+      />
+      {/* <SelectOneInput
         label="Selecione o sistema"
         value={characterSystem}
         values={systems}
@@ -56,18 +71,17 @@ const CharacterPage: React.FC<Props> = (props) => {
         value={characterFunction}
         values={functions}
         setValue={setCharacterFunction}
-      />
+      /> */}
 
       <Button
         title="Salvar"
-        onPress={() => {
-          const { success } = guilderApi.saveCharacter({
-            characterFunction,
-            system: characterSystem,
+        onPress={async () => {
+          const response = await guilderApi.saveCharacter({
             name: characterName,
-            table: undefined,
+            description: characterDescription,
+            background: chartacterBackground,
           });
-          if (success) {
+          if (!response.data.error) {
             Alert.alert("Personagem Salvo com Suceesso!", "Sucesso!");
             navigation.goBack();
           } else {

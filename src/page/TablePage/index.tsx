@@ -13,9 +13,12 @@ import SelectOneInput from "../../view/Fields/SelectOneInput";
 import TextField from "../../view/Fields/TextInput";
 import { GuilderApi } from "../../api/GuilderApi";
 import { TABLE_GAME_TYPE, TABLE_SESSION_TYPE } from "../../utils/const";
+import { useSelector } from "react-redux";
+import { getAuthenticationToken } from "../../reducer/selectors/auth";
 
 type Props = {
   navigation: StackNavigationProp<any>;
+  route: any;
 };
 
 const wrapperStyles: StyleProp<ViewStyle> = {
@@ -45,17 +48,19 @@ const gameTypes = [
 ];
 
 const TablePage: React.FC<Props> = (props) => {
-  const { navigation } = props;
+  const { navigation, route } = props;
+  const token = useSelector(getAuthenticationToken);
   const [tableTitle, setTableTitle] = useState("");
-  const [tableSessionType, setTableSessionType] = useState("ONLINE");
-  const [tableLocal, setTableLocal] = useState("");
-  const [tablePlayersNumberString, setTablePlayersNumberString] = useState("3");
-  const [tableLanguage, setTableLanguage] = useState("pt_BR");
   const [tableDescription, setTableDescription] = useState("");
-  const [tableGameType, setTableGameType] = useState("NARRATIVE");
-  const [tableSessionTime, setTableSessionTime] = useState("22:00/00:00");
+  // const [tableSessionType, setTableSessionType] = useState("ONLINE");
+  // const [tableLocal, setTableLocal] = useState("");
+  // const [tablePlayersNumberString, setTablePlayersNumberString] = useState("3");
+  // const [tableLanguage, setTableLanguage] = useState("pt_BR");
+  // const [tableDescription, setTableDescription] = useState("");
+  // const [tableGameType, setTableGameType] = useState("NARRATIVE");
+  // const [tableSessionTime, setTableSessionTime] = useState("22:00/00:00");
 
-  const guilderApi = new GuilderApi();
+  const guilderApi = new GuilderApi(token);
 
   return (
     <ScrollView style={wrapperStyles}>
@@ -64,7 +69,12 @@ const TablePage: React.FC<Props> = (props) => {
         value={tableTitle}
         setValue={setTableTitle}
       />
-      <SelectOneInput
+      <TextField
+        label="Descrição"
+        value={tableDescription}
+        setValue={setTableDescription}
+      />
+      {/* <SelectOneInput
         label="Tipo de Sessão"
         values={sessionTypes}
         value={tableSessionType}
@@ -103,32 +113,19 @@ const TablePage: React.FC<Props> = (props) => {
         values={gameTypes}
         value={tableGameType}
         setValue={setTableGameType}
-      />
+      /> */}
       <View style={{ marginBottom: 20 }}>
         <Button
           title="Salvar"
-          onPress={() => {
-            const { success } = guilderApi.saveTable({
+          onPress={async () => {
+            const response = await guilderApi.saveTable({
+              name: tableTitle,
               description: tableDescription,
-              gameType:
-                tableGameType === "NARRATIVE"
-                  ? TABLE_GAME_TYPE.NARRATIVE
-                  : TABLE_GAME_TYPE.RULED,
-              language: tableLanguage,
-              playersMaxNum:
-                (tablePlayersNumberString &&
-                  Number.parseInt(tablePlayersNumberString)) ||
-                0,
-              playersNum: 0,
-              sessionType:
-                tableSessionType === "LOCAL"
-                  ? TABLE_SESSION_TYPE.LOCAL
-                  : TABLE_SESSION_TYPE.ONLINE,
-              time: tableSessionTime,
-              title: tableTitle,
             });
 
-            if (success) {
+            console.log({ response });
+
+            if (response) {
               Alert.alert("Personagem Salvo com Suceesso!", "Sucesso!");
               navigation.goBack();
             } else {

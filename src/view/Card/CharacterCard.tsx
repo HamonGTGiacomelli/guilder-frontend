@@ -9,11 +9,10 @@ type Props = {
 
 const CharacterCard: React.FC<Props> = (props) => {
   const { character } = props;
-  const { name, table } = character;
+  const { name } = character;
   return (
     <Card>
       <Text>{name}</Text>
-      {table ? <Text>{table.name}</Text> : <Text>Searching for a Table</Text>}
     </Card>
   );
 };

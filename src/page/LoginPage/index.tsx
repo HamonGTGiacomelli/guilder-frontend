@@ -33,6 +33,7 @@ const LoginPage: React.FC<Props> = (props) => {
           cancelable: false,
         });
       } else {
+        console.log({ response });
         navigation.replace("Home");
       }
     });
