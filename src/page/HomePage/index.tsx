@@ -1,6 +1,6 @@
 import { StackNavigationProp } from "@react-navigation/stack";
 import React, { useEffect, useState } from "react";
-import { Button, View } from "react-native";
+import { Alert, Button, RefreshControl, View } from "react-native";
 import { GuilderApi } from "../../api/GuilderApi";
 import * as _ from "lodash";
 import { useSelector } from "react-redux";
@@ -8,7 +8,11 @@ import { getAuthenticationToken } from "../../reducer/selectors/auth";
 import CharacterCard from "../../view/Card/CharacterCard";
 import { Character, Table } from "../../types/userData";
 import TableCard from "../../view/Card/TableCard";
-import { RouteProp } from "@react-navigation/native";
+import {
+  FlatList,
+  TouchableWithoutFeedback,
+} from "react-native-gesture-handler";
+import Swipeout from "react-native-swipeout";
 
 type Props = {
   navigation: StackNavigationProp<any>;
@@ -20,56 +24,93 @@ const homePageStyle = {
   height: "100%",
 };
 
+const mergeTablesAndCharacter = (characterList: any, tableList: any) => {
+  const charList = characterList.map((item: any) => ({
+    ...item,
+    isCharacter: true,
+  }));
+  const tabList = tableList.map((item: any) => ({ ...item, isTable: true }));
+  return [...charList, ...tabList];
+};
+
 const HomePage: React.FC<Props> = ({ navigation, route }) => {
   const token = useSelector(getAuthenticationToken);
   const guilderApi = new GuilderApi(token);
   const [isLoading, setIsLoading] = useState(true);
   const [user, setUser] = useState({ characters: [], rpgTables: [] });
 
-  const reloadPage = () => {
-    guilderApi.getUserData().then((response) => {
-      setUser(response.data.user);
-    });
-  };
-
-  if (isLoading) {
+  const loadUserData = () => {
     guilderApi.getUserData().then((response) => {
       setIsLoading(false);
       setUser(response.data.user);
     });
-  }
+  };
+
+  useEffect(() => {
+    if (isLoading) {
+      loadUserData();
+    }
+    return () => {};
+  }, []);
 
   return (
     <View style={homePageStyle}>
-      {_.map(user.characters, (character: Character, index: number) => {
-        return <CharacterCard key={index} character={character} />;
-      })}
-      {_.map(user.rpgTables, (table: Table, index: number) => {
-        return <TableCard key={index} table={table} />;
-      })}
+      <FlatList
+        data={mergeTablesAndCharacter(user.characters, user.rpgTables)}
+        renderItem={({ item }) =>
+          item.isCharacter ? (
+            <TouchableWithoutFeedback
+              onPress={() => {
+                navigation.navigate("Character", { character: item });
+              }}
+            >
+              <CharacterCard character={item} />
+            </TouchableWithoutFeedback>
+          ) : (
+            <TouchableWithoutFeedback
+              onPress={() => {
+                navigation.navigate("Table", { table: item });
+              }}
+            >
+              <TableCard table={item} />
+            </TouchableWithoutFeedback>
+          )
+        }
+        keyExtractor={(item) => item._id}
+        refreshControl={
+          <RefreshControl
+            refreshing={isLoading}
+            onRefresh={() => {
+              setIsLoading(true);
+              loadUserData();
+            }}
+          />
+        }
+      />
       <View
         style={{
-          position: "absolute",
-          bottom: 15,
-          right: 15,
+          margin: 10,
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "space-between",
         }}
       >
-        <View style={{ bottom: 5 }}>
-          <Button
-            title="Adicionar Personagem"
-            onPress={() => {
-              navigation.navigate("Character");
-            }}
-          ></Button>
-        </View>
-        <View>
-          <Button
-            title="Adicionar Mesa"
-            onPress={() => {
-              navigation.navigate("Table", reloadPage);
-            }}
-          ></Button>
-        </View>
+        <Button
+          title="Adicionar Personagem"
+          onPress={() => {
+            navigation.navigate("ManageCharacter", {
+              callback: () => loadUserData(),
+            });
+          }}
+        ></Button>
+        <Button
+          title="Adicionar Mesa"
+          onPress={() => {
+            navigation.navigate("ManageTable", {
+              callback: () => loadUserData(),
+            });
+          }}
+        ></Button>
       </View>
     </View>
   );

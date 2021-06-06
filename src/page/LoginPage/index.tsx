@@ -1,8 +1,9 @@
 import { StackNavigationProp } from "@react-navigation/stack";
 import React, { useState } from "react";
 import { Alert, Button, StyleProp, View, ViewStyle } from "react-native";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { GuilderApi } from "../../api/GuilderApi";
+import { addAuthenticationToken } from "../../reducer/actions/auth";
 import { getAuthenticationToken } from "../../reducer/selectors/auth";
 import TextInput from "../../view/Fields/TextInput";
 
@@ -20,6 +21,9 @@ const LoginPage: React.FC<Props> = (props) => {
   const { navigation } = props;
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const dispatch = useDispatch();
+  const addAuthToken = (token: string) =>
+    dispatch(addAuthenticationToken(token));
   const auth = useSelector(getAuthenticationToken);
   if (auth && auth != "") {
     navigation.replace("Home");
@@ -33,7 +37,7 @@ const LoginPage: React.FC<Props> = (props) => {
           cancelable: false,
         });
       } else {
-        console.log({ response });
+        addAuthToken(response.data.token);
         navigation.replace("Home");
       }
     });
