@@ -8,8 +8,8 @@ import ManageCharacterPage from "../page/ManageCharacterPage";
 import ManageTablePage from "../page/ManageTablePage";
 import LoginPage from "../page/LoginPage";
 import RegisterPage from "../page/RegisterPage";
-import TablePage from "../page/TablePage";
-import CharacterPage from "../page/CharacterPage";
+import SearchCharacterPage from "../page/SearchCharacterPage";
+import SearchTablePage from "../page/SearchTablePage";
 
 const Router = () => {
   const token = useSelector(getAuthenticationToken);
@@ -27,8 +27,8 @@ const Router = () => {
               component={ManageCharacterPage}
             />
             <Stack.Screen name="ManageTable" component={ManageTablePage} />
-            <Stack.Screen name="Table" component={TablePage} />
-            <Stack.Screen name="Character" component={CharacterPage} />
+            <Stack.Screen name="Table" component={SearchCharacterPage} />
+            <Stack.Screen name="Character" component={SearchTablePage} />
           </>
         ) : (
           <>

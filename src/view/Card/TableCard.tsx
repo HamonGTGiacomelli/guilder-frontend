@@ -13,7 +13,7 @@ const TableCard: React.FC<Props> = (props) => {
 
   return (
     <Card>
-      <Text>{`${name}`}</Text>
+      <Text>{`Mesa: ${name}`}</Text>
     </Card>
   );
 };

@@ -12,7 +12,7 @@ const CharacterCard: React.FC<Props> = (props) => {
   const { name } = character;
   return (
     <Card>
-      <Text>{name}</Text>
+      <Text>Personagem: {name}</Text>
     </Card>
   );
 };

@@ -8,12 +8,17 @@ export class GuilderApi {
   token: string;
 
   constructor(token?: string) {
-    this.api = Axios.create({ baseURL: "http://192.168.100.132:3333" });
     if (token) {
       this.token = token;
     } else {
       this.token = "";
     }
+    this.api = Axios.create({
+      baseURL: "http://192.168.100.132:3333",
+      headers: {
+        Authorization: this.token,
+      },
+    });
   }
 
   getAuth() {
@@ -42,25 +47,65 @@ export class GuilderApi {
   }
 
   getUserData() {
-    return this.api.get("/user", {
-      headers: {
-        Authorization: this.token,
-      },
-    });
+    return this.api.get("/user");
   }
 
   saveCharacter(chracter: Character) {
-    return this.api.post("/character", chracter, {
-      headers: {
-        Authorization: this.token,
+    return this.api.post("/character", chracter);
+  }
+
+  saveTable(table: Table) {
+    return this.api.post("/rpgTable", table);
+  }
+
+  getAvailableTables(characterId: string) {
+    return this.api.get(`/match/characterId/${characterId}/availableTables`);
+  }
+
+  getAvailableCharacters(tableId: string) {
+    return this.api.get(`/match/tableId/${tableId}/availableCharacters`);
+  }
+
+  acceptAvailableTable(characterId: string, tableId: string) {
+    return this.api.post("/match/characterAcceptTable", {
+      table: {
+        _id: tableId,
+      },
+      character: {
+        _id: characterId,
       },
     });
   }
 
-  saveTable(table: Table) {
-    return this.api.post("/rpgTable", table, {
-      headers: {
-        Authorization: this.token,
+  rejectAvailableTable(characterId: string, tableId: string) {
+    return this.api.post("/match/characterRejectTable", {
+      table: {
+        _id: tableId,
+      },
+      character: {
+        _id: characterId,
+      },
+    });
+  }
+
+  acceptAvailableCharacter(tableId: string, characterId: string) {
+    return this.api.post("/match/tableAcceptCharacter", {
+      table: {
+        _id: tableId,
+      },
+      character: {
+        _id: characterId,
+      },
+    });
+  }
+
+  rejectAvailableCharacter(tableId: string, characterId: string) {
+    return this.api.post("/match/tableRejectCharacter", {
+      table: {
+        _id: tableId,
+      },
+      character: {
+        _id: characterId,
       },
     });
   }

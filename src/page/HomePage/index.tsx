@@ -61,7 +61,11 @@ const HomePage: React.FC<Props> = ({ navigation, route }) => {
           item.isCharacter ? (
             <TouchableWithoutFeedback
               onPress={() => {
-                navigation.navigate("Character", { character: item });
+                if (item.table && item.table.length > 0) {
+                  Alert.alert("TODO: Go to Table");
+                } else {
+                  navigation.navigate("Character", { character: item });
+                }
               }}
             >
               <CharacterCard character={item} />
@@ -69,7 +73,11 @@ const HomePage: React.FC<Props> = ({ navigation, route }) => {
           ) : (
             <TouchableWithoutFeedback
               onPress={() => {
-                navigation.navigate("Table", { table: item });
+                if (item.table && item.table.length > 0) {
+                  Alert.alert("TODO: Go to Table");
+                } else {
+                  navigation.navigate("Table", { table: item });
+                }
               }}
             >
               <TableCard table={item} />
