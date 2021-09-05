@@ -4,11 +4,13 @@ export type Character = {
   name: string;
   description: string;
   background: string;
+  table: Table;
 };
 
 export type Table = {
   name: string;
   description: string;
+  characters: Characterp[];
 };
 
 export type UserData = {

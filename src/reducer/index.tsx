@@ -15,6 +15,11 @@ export const authReducer = (
         ...state,
         token: action.payload,
       };
+    case "DELETE_AUTHENTICATION_TOKEN":
+      return {
+        ...state,
+        token: "",
+      };
     default:
       return state;
   }

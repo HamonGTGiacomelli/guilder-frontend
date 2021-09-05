@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text } from "react-native";
+import { View, Text, Image } from "react-native";
 import Card from ".";
 import { Table } from "../../types/userData";
 
@@ -9,11 +9,17 @@ type Props = {
 
 const TableCard: React.FC<Props> = (props) => {
   const { table } = props;
-  const { name } = table;
+  const { name, characters } = table;
 
   return (
     <Card>
-      <Text>{`Mesa: ${name}`}</Text>
+      <View style={{ display: "flex", flexDirection: "row" }}>
+        <Image
+          style={{ height: 100, width: 100 }}
+          source={require("../../../assets/table.png")}
+        />
+        <Text>{`${name}`}</Text>
+      </View>
     </Card>
   );
 };
