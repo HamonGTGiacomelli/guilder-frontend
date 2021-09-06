@@ -1,7 +1,7 @@
 import React from "react";
 import { Text, Image, View } from "react-native";
 import Card from ".";
-import { Character } from "../../types/userData";
+import { Character } from "../../../types/userData";
 import TableCharacterItemList from "./TableCharacterItemListCard";
 
 type Props = {

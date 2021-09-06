@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { View, StyleProp, ViewStyle, Button, Alert } from "react-native";
 import { useDispatch } from "react-redux";
 import { GuilderApi } from "../../api/GuilderApi";
-import TextInput from "../../view/Fields/TextInput";
+import TextInput from "../../components/view/Fields/TextInput";
 import { addAuthenticationToken } from "../../reducer/actions/auth";
 
 type Props = {

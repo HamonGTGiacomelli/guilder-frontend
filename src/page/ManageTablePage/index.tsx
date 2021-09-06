@@ -8,7 +8,7 @@ import {
   Alert,
   ScrollView,
 } from "react-native";
-import TextField from "../../view/Fields/TextInput";
+import TextField from "../../components/view/Fields/TextInput";
 import { GuilderApi } from "../../api/GuilderApi";
 import { useSelector } from "react-redux";
 import { getAuthenticationToken } from "../../reducer/selectors/auth";

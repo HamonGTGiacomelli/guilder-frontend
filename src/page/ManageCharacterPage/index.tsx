@@ -4,7 +4,7 @@ import { View, StyleProp, ViewStyle, Button, Alert } from "react-native";
 import { useSelector } from "react-redux";
 import { GuilderApi } from "../../api/GuilderApi";
 import { getAuthenticationToken } from "../../reducer/selectors/auth";
-import TextField from "../../view/Fields/TextInput";
+import TextField from "../../components/view/Fields/TextInput";
 
 type Props = {
   navigation: StackNavigationProp<any>;

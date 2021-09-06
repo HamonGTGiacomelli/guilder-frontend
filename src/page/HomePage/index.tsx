@@ -5,8 +5,8 @@ import { GuilderApi } from "../../api/GuilderApi";
 import * as _ from "lodash";
 import { useSelector } from "react-redux";
 import { getAuthenticationToken } from "../../reducer/selectors/auth";
-import CharacterCard from "../../view/Card/CharacterCard";
-import TableCard from "../../view/Card/TableCard";
+import CharacterCard from "../../components/view/Card/CharacterCard";
+import TableCard from "../../components/view/Card/TableCard";
 import {
   FlatList,
   TouchableWithoutFeedback,

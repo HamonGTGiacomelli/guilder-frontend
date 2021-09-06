@@ -1,6 +1,6 @@
 import React from "react";
 import { Text } from "react-native";
-import { Table } from "../../types/userData";
+import { Table } from "../../../types/userData";
 import TableCharacterItemList from "./TableCharacterItemListCard";
 
 type Props = {

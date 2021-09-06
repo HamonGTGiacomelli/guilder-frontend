@@ -6,7 +6,7 @@ import { GuilderApi } from "../../api/GuilderApi";
 import { addAuthenticationToken } from "../../reducer/actions/auth";
 import { getAuthenticationToken } from "../../reducer/selectors/auth";
 import { ROUTES } from "../../router/constants";
-import TextInput from "../../view/Fields/TextInput";
+import TextInput from "../../components/view/Fields/TextInput";
 
 type Props = {
   navigation: StackNavigationProp<any>;
