@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { GuilderApi } from "../../api/GuilderApi";
 import { addAuthenticationToken } from "../../reducer/actions/auth";
 import { getAuthenticationToken } from "../../reducer/selectors/auth";
+import { ROUTES } from "../../router/constants";
 import TextInput from "../../view/Fields/TextInput";
 
 type Props = {
@@ -38,13 +39,13 @@ const LoginPage: React.FC<Props> = (props) => {
         });
       } else {
         addAuthToken(response.data.token);
-        navigation.replace("Home");
+        navigation.replace(ROUTES.HOME);
       }
     });
   };
 
   const onRegisterButtonClicked = () => {
-    navigation.navigate("Register");
+    navigation.navigate(ROUTES.REGISTER);
   };
 
   return (

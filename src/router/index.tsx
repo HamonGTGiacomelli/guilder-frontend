@@ -13,6 +13,9 @@ import SearchTablePage from "../page/SearchTablePage";
 import { Image } from "react-native";
 import { deleteAuthenticationToken } from "../reducer/actions/auth";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import TablePage from "../page/TablePage";
+import { Character, Table } from "../types/userData";
+import { ROUTES } from "./constants";
 
 const Router = () => {
   const token = useSelector(getAuthenticationToken);
@@ -25,7 +28,7 @@ const Router = () => {
         {token ? (
           <>
             <Stack.Screen
-              name="Home"
+              name={ROUTES.HOME}
               component={HomePage}
               options={{
                 headerRight: () => (
@@ -41,17 +44,28 @@ const Router = () => {
               }}
             />
             <Stack.Screen
-              name="ManageCharacter"
+              name={ROUTES.MANAGE_CHARACTER}
               component={ManageCharacterPage}
             />
-            <Stack.Screen name="ManageTable" component={ManageTablePage} />
-            <Stack.Screen name="Table" component={SearchCharacterPage} />
-            <Stack.Screen name="Character" component={SearchTablePage} />
+            <Stack.Screen
+              name={ROUTES.MANAGE_TABLE}
+              component={ManageTablePage}
+            />
+            <Stack.Screen name={ROUTES.TABLE} component={TablePage} />
+            <Stack.Screen
+              name={ROUTES.SEARCH_CHARACTER}
+              component={SearchCharacterPage}
+            />
+            <Stack.Screen name={ROUTES.CHARACTER} component={SearchTablePage} />
+            <Stack.Screen
+              name={ROUTES.SEARCH_CHARACTER}
+              component={SearchTablePage}
+            />
           </>
         ) : (
           <>
-            <Stack.Screen name="Login" component={LoginPage} />
-            <Stack.Screen name="Register" component={RegisterPage} />
+            <Stack.Screen name={ROUTES.LOGIN} component={LoginPage} />
+            <Stack.Screen name={ROUTES.REGISTER} component={RegisterPage} />
           </>
         )}
       </Stack.Navigator>

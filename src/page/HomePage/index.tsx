@@ -11,6 +11,7 @@ import {
   FlatList,
   TouchableWithoutFeedback,
 } from "react-native-gesture-handler";
+import { ROUTES } from "../../router/constants";
 
 type Props = {
   navigation: StackNavigationProp<any>;
@@ -62,7 +63,7 @@ const HomePage: React.FC<Props> = ({ navigation, route }) => {
                 if (item.table && item.table.length > 0) {
                   Alert.alert("TODO: Go to Table");
                 } else {
-                  navigation.navigate("Character", { character: item });
+                  navigation.navigate(ROUTES.CHARACTER, { character: item });
                 }
               }}
             >
@@ -74,7 +75,7 @@ const HomePage: React.FC<Props> = ({ navigation, route }) => {
                 if (item.table && item.table.length > 0) {
                   Alert.alert("TODO: Go to Table");
                 } else {
-                  navigation.navigate("Table", { table: item });
+                  navigation.navigate(ROUTES.TABLE, { table: item });
                 }
               }}
             >
@@ -104,7 +105,7 @@ const HomePage: React.FC<Props> = ({ navigation, route }) => {
         <Button
           title="Adicionar Personagem"
           onPress={() => {
-            navigation.navigate("ManageCharacter", {
+            navigation.navigate(ROUTES.MANAGE_CHARACTER, {
               callback: () => loadUserData(),
             });
           }}
@@ -112,7 +113,7 @@ const HomePage: React.FC<Props> = ({ navigation, route }) => {
         <Button
           title="Adicionar Mesa"
           onPress={() => {
-            navigation.navigate("ManageTable", {
+            navigation.navigate(ROUTES.MANAGE_TABLE, {
               callback: () => loadUserData(),
             });
           }}
