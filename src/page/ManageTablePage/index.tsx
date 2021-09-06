@@ -2,7 +2,6 @@ import { StackNavigationProp } from "@react-navigation/stack";
 import React, { useState } from "react";
 import {
   View,
-  Text,
   StyleProp,
   ViewStyle,
   Button,
@@ -28,6 +27,7 @@ const ManageTablePage: React.FC<Props> = (props) => {
   const token = useSelector(getAuthenticationToken);
   const [tableTitle, setTableTitle] = useState("");
   const [tableDescription, setTableDescription] = useState("");
+  const [maxCharactersString, setMaxCharactersString] = useState("");
 
   const guilderApi = new GuilderApi(token);
 
@@ -43,6 +43,12 @@ const ManageTablePage: React.FC<Props> = (props) => {
         value={tableDescription}
         setValue={setTableDescription}
       />
+      <TextField
+        label="Número máximo de Jogadores"
+        value={maxCharactersString}
+        keyboardType="number-pad"
+        setValue={setMaxCharactersString}
+      />
       <View style={{ marginBottom: 20 }}>
         <Button
           title="Salvar"
@@ -50,6 +56,7 @@ const ManageTablePage: React.FC<Props> = (props) => {
             const response = await guilderApi.saveTable({
               name: tableTitle,
               description: tableDescription,
+              maxCharacters: parseInt(maxCharactersString),
             });
 
             if (response) {

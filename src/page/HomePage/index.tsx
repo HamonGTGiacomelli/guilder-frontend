@@ -6,13 +6,11 @@ import * as _ from "lodash";
 import { useSelector } from "react-redux";
 import { getAuthenticationToken } from "../../reducer/selectors/auth";
 import CharacterCard from "../../view/Card/CharacterCard";
-import { Character, Table } from "../../types/userData";
 import TableCard from "../../view/Card/TableCard";
 import {
   FlatList,
   TouchableWithoutFeedback,
 } from "react-native-gesture-handler";
-import Swipeout from "react-native-swipeout";
 
 type Props = {
   navigation: StackNavigationProp<any>;
