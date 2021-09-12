@@ -4,7 +4,6 @@ import { Alert, Text, View } from "react-native";
 import { ROUTES } from "../../../router/constants";
 import { Character } from "../../../types/userData";
 import TableCharacterItemList from "./TableCharacterItemListCard";
-import axios from "axios";
 import { useSelector } from "react-redux";
 import { getAuthenticationToken } from "../../../reducer/selectors/auth";
 import { GuilderApi } from "../../../api/GuilderApi";
@@ -61,17 +60,14 @@ const CharacterCard: React.FC<Props> = (props) => {
     <TableCharacterItemList
       source={require("../../../../assets/user.png")}
       onBodyPress={handleOnCardPress}
-      onImagePress={handleOnCardPress}
       onEditPress={handleEditPress}
       onRemovePress={handleRemovePress}
     >
       <View>
-        <Text>{name}</Text>
-        {table ? (
-          <Text>Mesa: {table.name}</Text>
-        ) : (
-          <Text>Procurando Mesa...</Text>
-        )}
+        <Text style={{ fontWeight: "bold" }}>{name}</Text>
+        <Text style={{ fontSize: 10 }}>
+          {table ? `Mesa: ${table.name}` : "Procurando Mesa..."}
+        </Text>
       </View>
     </TableCharacterItemList>
   );

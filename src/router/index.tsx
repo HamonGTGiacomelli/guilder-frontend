@@ -14,9 +14,7 @@ import { Image } from "react-native";
 import { deleteAuthenticationToken } from "../reducer/actions/auth";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import TablePage from "../page/TablePage";
-import { Character, Table } from "../types/userData";
 import { ROUTES } from "./constants";
-import CharacterPage from "../page/CharacterPage";
 
 const Router = () => {
   const token = useSelector(getAuthenticationToken);
@@ -61,7 +59,6 @@ const Router = () => {
               name={ROUTES.SEARCH_CHARACTER}
               component={SearchCharacterPage}
             />
-            <Stack.Screen name={ROUTES.CHARACTER} component={CharacterPage} />
             <Stack.Screen
               name={ROUTES.SEARCH_TABLE}
               component={SearchTablePage}

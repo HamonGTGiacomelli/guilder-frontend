@@ -54,11 +54,15 @@ const TableCard: React.FC<Props> = (props) => {
     <TableCharacterItemList
       source={require("../../../../assets/table.png")}
       onBodyPress={handleOnCardPress}
-      onImagePress={handleOnCardPress}
       onEditPress={handleEditPress}
       onRemovePress={handleRemovePress}
     >
-      <Text>{`${name} (${characters?.length || 0}/${maxCharacters})`}</Text>
+      <Text style={{ fontWeight: "bold" }}>{`${name} (${
+        characters?.length || 0
+      }/${maxCharacters})`}</Text>
+      <Text style={{ fontSize: 10 }}>
+        Clique aqui para visualizar detalhes do grupo.
+      </Text>
     </TableCharacterItemList>
   );
 };
