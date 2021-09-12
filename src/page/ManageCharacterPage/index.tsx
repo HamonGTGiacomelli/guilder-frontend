@@ -5,10 +5,13 @@ import { useSelector } from "react-redux";
 import { GuilderApi } from "../../api/GuilderApi";
 import { getAuthenticationToken } from "../../reducer/selectors/auth";
 import TextField from "../../components/view/Fields/TextInput";
+import { Character } from "../../types/userData";
+import * as _ from "lodash";
 
 type Props = {
   navigation: StackNavigationProp<any>;
   route: any;
+  character?: Character;
 };
 
 const wrapperStyles: StyleProp<ViewStyle> = {
@@ -19,10 +22,16 @@ const wrapperStyles: StyleProp<ViewStyle> = {
 
 const ManageCharacterPage: React.FC<Props> = (props) => {
   const { navigation, route } = props;
+  const { params } = route;
+  const { callback, character } = params;
+  const id = _.get(character, "_id");
+  const name = _.get(character, "name", "");
+  const background = _.get(character, "background", "");
+  const description = _.get(character, "description", "");
   const token = useSelector(getAuthenticationToken);
-  const [characterName, setCharacterName] = useState("");
-  const [characterDescription, setCharacterDescription] = useState("");
-  const [chartacterBackground, setChartacterBackground] = useState("");
+  const [characterName, setCharacterName] = useState(name);
+  const [characterDescription, setCharacterDescription] = useState(description);
+  const [chartacterBackground, setChartacterBackground] = useState(background);
 
   const guilderApi = new GuilderApi(token);
 
@@ -49,13 +58,14 @@ const ManageCharacterPage: React.FC<Props> = (props) => {
         title="Salvar"
         onPress={async () => {
           const response = await guilderApi.saveCharacter({
+            _id: id,
             name: characterName,
             description: characterDescription,
             background: chartacterBackground,
           });
           if (!response.data.error) {
             Alert.alert("Personagem Salvo com Suceesso!", "Sucesso!");
-            route.params.callback();
+            callback();
             navigation.goBack();
           } else {
             Alert.alert(

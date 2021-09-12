@@ -51,10 +51,16 @@ export class GuilderApi {
   }
 
   saveCharacter(chracter: Character) {
+    if (chracter._id) {
+      this.api.put("/character", chracter);
+    }
     return this.api.post("/character", chracter);
   }
 
   saveTable(table: Table) {
+    if (table._id) {
+      return this.api.put("/rpgTable", table);
+    }
     return this.api.post("/rpgTable", table);
   }
 
@@ -108,5 +114,13 @@ export class GuilderApi {
         _id: characterId,
       },
     });
+  }
+
+  deleteCharacter(characterId: string) {
+    return this.api.delete(`/character/${characterId}`);
+  }
+
+  deleteTable(tableId: string) {
+    return this.api.delete(`/rpgTable/${tableId}`);
   }
 }

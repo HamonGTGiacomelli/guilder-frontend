@@ -42,6 +42,11 @@ const HomePage: React.FC<Props> = ({ navigation, route }) => {
     });
   };
 
+  const updateList = () => {
+    setIsLoading(true);
+    loadUserData();
+  };
+
   useEffect(() => {
     if (isLoading) {
       loadUserData();
@@ -55,20 +60,24 @@ const HomePage: React.FC<Props> = ({ navigation, route }) => {
         data={mergeTablesAndCharacter(user.characters, user.rpgTables)}
         renderItem={({ item }) =>
           item.isCharacter ? (
-            <CharacterCard character={item} navigation={navigation} />
+            <CharacterCard
+              key={item._id}
+              character={item}
+              navigation={navigation}
+              triggerUpdateList={() => updateList()}
+            />
           ) : (
-            <TableCard table={item} navigation={navigation} />
+            <TableCard
+              key={item._id}
+              table={item}
+              navigation={navigation}
+              triggerUpdateList={() => updateList()}
+            />
           )
         }
         keyExtractor={(item) => item._id}
         refreshControl={
-          <RefreshControl
-            refreshing={isLoading}
-            onRefresh={() => {
-              setIsLoading(true);
-              loadUserData();
-            }}
-          />
+          <RefreshControl refreshing={isLoading} onRefresh={updateList} />
         }
       />
       <View
@@ -83,7 +92,7 @@ const HomePage: React.FC<Props> = ({ navigation, route }) => {
           title="Adicionar Personagem"
           onPress={() => {
             navigation.navigate(ROUTES.MANAGE_CHARACTER, {
-              callback: () => loadUserData(),
+              callback: () => updateList(),
             });
           }}
         ></Button>
@@ -91,7 +100,7 @@ const HomePage: React.FC<Props> = ({ navigation, route }) => {
           title="Adicionar Mesa"
           onPress={() => {
             navigation.navigate(ROUTES.MANAGE_TABLE, {
-              callback: () => loadUserData(),
+              callback: () => updateList(),
             });
           }}
         ></Button>
