@@ -1,16 +1,13 @@
 import { StackNavigationProp } from "@react-navigation/stack";
 import React, { useEffect, useState } from "react";
-import { Alert, Button, RefreshControl, View } from "react-native";
+import { Button, RefreshControl, View } from "react-native";
 import { GuilderApi } from "../../api/GuilderApi";
 import * as _ from "lodash";
 import { useSelector } from "react-redux";
 import { getAuthenticationToken } from "../../reducer/selectors/auth";
 import CharacterCard from "../../components/view/Card/CharacterCard";
 import TableCard from "../../components/view/Card/TableCard";
-import {
-  FlatList,
-  TouchableWithoutFeedback,
-} from "react-native-gesture-handler";
+import { FlatList } from "react-native-gesture-handler";
 import { ROUTES } from "../../router/constants";
 
 type Props = {
@@ -58,29 +55,9 @@ const HomePage: React.FC<Props> = ({ navigation, route }) => {
         data={mergeTablesAndCharacter(user.characters, user.rpgTables)}
         renderItem={({ item }) =>
           item.isCharacter ? (
-            <TouchableWithoutFeedback
-              onPress={() => {
-                if (item.table && item.table.length > 0) {
-                  Alert.alert("TODO: Go to Table");
-                } else {
-                  navigation.navigate(ROUTES.CHARACTER, { character: item });
-                }
-              }}
-            >
-              <CharacterCard character={item} />
-            </TouchableWithoutFeedback>
+            <CharacterCard character={item} navigation={navigation} />
           ) : (
-            <TouchableWithoutFeedback
-              onPress={() => {
-                if (item.table && item.table.length > 0) {
-                  Alert.alert("TODO: Go to Table");
-                } else {
-                  navigation.navigate(ROUTES.TABLE, { table: item });
-                }
-              }}
-            >
-              <TableCard table={item} />
-            </TouchableWithoutFeedback>
+            <TableCard table={item} navigation={navigation} />
           )
         }
         keyExtractor={(item) => item._id}

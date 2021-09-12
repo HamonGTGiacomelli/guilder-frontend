@@ -25,10 +25,6 @@ const LoginPage: React.FC<Props> = (props) => {
   const dispatch = useDispatch();
   const addAuthToken = (token: string) =>
     dispatch(addAuthenticationToken(token));
-  const auth = useSelector(getAuthenticationToken);
-  if (auth && auth != "") {
-    navigation.replace("Home");
-  }
 
   const onLoginClicked = () => {
     const api = new GuilderApi();
