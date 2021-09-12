@@ -12,10 +12,13 @@ import TextField from "../../components/view/Fields/TextInput";
 import { GuilderApi } from "../../api/GuilderApi";
 import { useSelector } from "react-redux";
 import { getAuthenticationToken } from "../../reducer/selectors/auth";
+import { Table } from "../../types/userData";
+import * as _ from "lodash";
 
 type Props = {
   navigation: StackNavigationProp<any>;
   route: any;
+  table?: Table;
 };
 
 const wrapperStyles: StyleProp<ViewStyle> = {
@@ -24,10 +27,17 @@ const wrapperStyles: StyleProp<ViewStyle> = {
 
 const ManageTablePage: React.FC<Props> = (props) => {
   const { navigation, route } = props;
+  const { params } = route;
+  const { callback, table } = params;
   const token = useSelector(getAuthenticationToken);
-  const [tableTitle, setTableTitle] = useState("");
-  const [tableDescription, setTableDescription] = useState("");
-  const [maxCharactersString, setMaxCharactersString] = useState("");
+  const id = _.get(table, "_id");
+  const title = _.get(table, "title", "");
+  const description = _.get(table, "description", "");
+  const maxCharacterString = _.get(table, "maxCharacters", "").toString();
+  const [tableTitle, setTableTitle] = useState(title);
+  const [tableDescription, setTableDescription] = useState(description);
+  const [tableMaxCharactersString, setTableMaxCharactersString] =
+    useState(maxCharacterString);
 
   const guilderApi = new GuilderApi(token);
 
@@ -45,24 +55,25 @@ const ManageTablePage: React.FC<Props> = (props) => {
       />
       <TextField
         label="Número máximo de Jogadores"
-        value={maxCharactersString}
+        value={tableMaxCharactersString}
         keyboardType="number-pad"
-        setValue={setMaxCharactersString}
+        setValue={setTableMaxCharactersString}
       />
       <View style={{ marginBottom: 20 }}>
         <Button
           title="Salvar"
           onPress={async () => {
             const response = await guilderApi.saveTable({
+              _id: id,
               name: tableTitle,
               description: tableDescription,
-              maxCharacters: parseInt(maxCharactersString),
+              maxCharacters: parseInt(tableMaxCharactersString),
             });
 
             if (response) {
               Alert.alert("Personagem Salvo com Suceesso!", "Sucesso!");
               navigation.goBack();
-              route.params.callback();
+              callback();
             } else {
               Alert.alert(
                 "Erro",
