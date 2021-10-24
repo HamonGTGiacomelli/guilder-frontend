@@ -50,7 +50,7 @@ const CharacterCard: React.FC<Props> = (props) => {
 
   const handleOnCardPress = () => {
     if (table) {
-      navigation.navigate(ROUTES.TABLE, { table });
+      navigation.navigate(ROUTES.TABLE, { table, character });
     } else {
       navigation.navigate(ROUTES.SEARCH_TABLE, { character });
     }
