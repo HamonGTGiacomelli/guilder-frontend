@@ -5,6 +5,7 @@ import { addMessage, listenToChat } from "../../api/Firebase";
 import { Character } from "../../types/userData";
 import * as _ from "lodash";
 import ChatMessage from "./ChatMessage";
+import PrimaryButton from "../../components/view/Buttons/PrimaryButton";
 
 type Props = {
   tableId: string;
@@ -18,8 +19,19 @@ const ChatTab: React.FC<Props> = ({ character, tableId }) => {
   const chatScrollRef = useRef<ScrollView>(null);
 
   useEffect(() => {
-    listenToChat(tableId, (value) => setMessages(value));
+    const removeListener = listenToChat(tableId, (value) => setMessages(value));
+    return () => removeListener();
   }, []);
+
+  const handleSendMessage = () => {
+    const msg = {
+      senderId: character?._id || null,
+      senderName: character?.name || null,
+      message,
+    };
+    addMessage(tableId, msg);
+    setMessage("");
+  };
 
   return (
     <View
@@ -37,8 +49,8 @@ const ChatTab: React.FC<Props> = ({ character, tableId }) => {
           flex: 1,
           borderWidth: 1,
           borderRadius: 5,
-          marginBottom: 8,
-          paddingHorizontal: 5,
+          marginBottom: 16,
+          paddingHorizontal: 8,
           overflow: "hidden",
         }}
         onContentSizeChange={() =>
@@ -59,25 +71,26 @@ const ChatTab: React.FC<Props> = ({ character, tableId }) => {
       </ScrollView>
       <View style={{ display: "flex", flexDirection: "row", marginBottom: 16 }}>
         <TextInput
-          style={{ flex: 1, borderWidth: 1, borderRadius: 5, marginRight: 8 }}
+          style={{
+            flex: 1,
+            borderWidth: 1,
+            borderRadius: 5,
+            paddingHorizontal: 8,
+            marginRight: 8,
+          }}
+          multiline={true}
           onChangeText={(text) => {
             setMessage(text);
           }}
           value={message}
-        />
-        <Button
-          title="Enviar"
-          onPress={() => {
-            const msg = {
-              senderId: character?._id || null,
-              senderName: character?.name || null,
-              message,
-            };
-            console.log({ msg });
-            addMessage(tableId, msg);
-            setMessage("");
+          onKeyPress={(e) => {
+            if (e.nativeEvent.key === "Enter") {
+              e.preventDefault();
+              handleSendMessage();
+            }
           }}
         />
+        <PrimaryButton label="Enviar" onPressHandler={handleSendMessage} />
       </View>
     </View>
   );

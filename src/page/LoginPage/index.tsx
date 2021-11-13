@@ -1,21 +1,35 @@
 import { StackNavigationProp } from "@react-navigation/stack";
 import React, { useState } from "react";
-import { Alert, Button, StyleProp, View, ViewStyle } from "react-native";
+import {
+  Alert,
+  Button,
+  Dimensions,
+  StyleProp,
+  Text,
+  View,
+  ViewStyle,
+} from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { GuilderApi } from "../../api/GuilderApi";
 import { addAuthenticationToken } from "../../reducer/actions/auth";
 import { getAuthenticationToken } from "../../reducer/selectors/auth";
 import { ROUTES } from "../../router/constants";
 import TextInput from "../../components/view/Fields/TextInput";
+import { TouchableOpacity } from "react-native-gesture-handler";
+import PrimaryButton from "../../components/view/Buttons/PrimaryButton";
+import LinkButton from "../../components/view/Buttons/LinkButton";
 
 type Props = {
   navigation: StackNavigationProp<any>;
 };
 
 const wrapperStyles: StyleProp<ViewStyle> = {
-  height: "100%",
+  flex: 1,
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
   width: "100%",
-  padding: 15,
+  paddingHorizontal: 15,
 };
 
 const LoginPage: React.FC<Props> = (props) => {
@@ -53,8 +67,11 @@ const LoginPage: React.FC<Props> = (props) => {
         value={password}
         secureTextEntry
       />
-      <Button title="Login" onPress={onLoginClicked} />
-      <Button title="Cadastre-se" onPress={onRegisterButtonClicked} />
+      <PrimaryButton label={"Login"} onPressHandler={onLoginClicked} />
+      <LinkButton
+        label="Cadastrar-se"
+        onPressHandler={onRegisterButtonClicked}
+      />
     </View>
   );
 };

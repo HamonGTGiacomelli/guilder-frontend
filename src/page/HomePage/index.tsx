@@ -9,6 +9,7 @@ import CharacterCard from "../../components/view/Card/CharacterCard";
 import TableCard from "../../components/view/Card/TableCard";
 import { FlatList } from "react-native-gesture-handler";
 import { ROUTES } from "../../router/constants";
+import PrimaryButton from "../../components/view/Buttons/PrimaryButton";
 
 type Props = {
   navigation: StackNavigationProp<any>;
@@ -88,22 +89,22 @@ const HomePage: React.FC<Props> = ({ navigation, route }) => {
           justifyContent: "space-between",
         }}
       >
-        <Button
-          title="Adicionar Personagem"
-          onPress={() => {
+        <PrimaryButton
+          label="Adicionar Personagem"
+          onPressHandler={() => {
             navigation.navigate(ROUTES.MANAGE_CHARACTER, {
               callback: () => updateList(),
             });
           }}
-        ></Button>
-        <Button
-          title="Adicionar Mesa"
-          onPress={() => {
+        ></PrimaryButton>
+        <PrimaryButton
+          label="Adicionar Mesa"
+          onPressHandler={() => {
             navigation.navigate(ROUTES.MANAGE_TABLE, {
               callback: () => updateList(),
             });
           }}
-        ></Button>
+        ></PrimaryButton>
       </View>
     </View>
   );

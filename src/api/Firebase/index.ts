@@ -23,7 +23,7 @@ export const listenToChat = (
   chatId: string,
   onChatChange: (object: any) => void
 ) => {
-  onValue(ref(db, `chats/${chatId}`), (snapshot) => {
+  return onValue(ref(db, `chats/${chatId}`), (snapshot) => {
     const data = snapshot.val();
     onChatChange(data);
   });

@@ -17,7 +17,7 @@ const ChatMessage: React.FC<Props> = ({ isUserMessage, sender, message }) => {
         borderRadius: 8,
         paddingVertical: 4,
         paddingHorizontal: 8,
-        marginTop: 8,
+        marginVertical: 4,
         alignSelf: isUserMessage ? "flex-end" : "flex-start",
       }}
     >

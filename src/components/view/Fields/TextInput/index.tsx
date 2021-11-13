@@ -19,24 +19,20 @@ type Props = {
 };
 
 const wrapperStyles: StyleProp<ViewStyle> = {
-  marginBottom: 10,
+  width: "100%",
+  marginBottom: 16,
 };
 
 const labelStyles: StyleProp<TextStyle> = {
   fontSize: 16,
   fontWeight: "bold",
-  color: "#0066CC",
+  color: "#9B0000",
+  marginBottom: 4,
 };
 
 const TextField: React.FC<Props> = (props) => {
-  const {
-    value,
-    setValue,
-    label,
-    enabled,
-    keyboardType,
-    secureTextEntry,
-  } = props;
+  const { value, setValue, label, enabled, keyboardType, secureTextEntry } =
+    props;
   return (
     <View style={wrapperStyles}>
       <Text style={labelStyles}>{label}</Text>
@@ -44,7 +40,13 @@ const TextField: React.FC<Props> = (props) => {
         enabled={enabled}
         editable={enabled}
         keyboardType={keyboardType}
-        style={{ height: 40, borderBottomWidth: 1 }}
+        style={{
+          height: 40,
+          borderWidth: 1,
+          borderRadius: 8,
+          paddingHorizontal: 8,
+          backgroundColor: "#FFFFFF",
+        }}
         onChangeText={(text) => setValue(text)}
         value={value}
         secureTextEntry={secureTextEntry}

@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { View, StyleProp, ViewStyle, Button, Alert } from "react-native";
 import { useDispatch } from "react-redux";
 import { GuilderApi } from "../../api/GuilderApi";
+import PrimaryButton from "../../components/view/Buttons/PrimaryButton";
 import TextInput from "../../components/view/Fields/TextInput";
 import { addAuthenticationToken } from "../../reducer/actions/auth";
 
@@ -35,9 +36,9 @@ const RegisterPage: React.FC<Props> = (props) => {
       <TextInput label="Sobrenome" setValue={setLastName} value={lastName} />
       <TextInput label="Usuário" setValue={setUsername} value={username} />
       <TextInput label="Senha" setValue={setPassword} value={password} />
-      <Button
-        title="Cadastrar"
-        onPress={() => {
+      <PrimaryButton
+        label="Cadastrar"
+        onPressHandler={() => {
           api
             .createUser(username, password, firstName, lastName)
             .then((response) => {
