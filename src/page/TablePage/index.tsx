@@ -42,7 +42,7 @@ const TablePage: React.FC<Props> = (props) => {
       case TAB_CONFIG[1].id:
         return <ScheduleTab />;
       default:
-        return <GroupInfoTab table={table} />;
+        return <GroupInfoTab navigation={navigation} character={character} table={table} />;
     }
   };
 

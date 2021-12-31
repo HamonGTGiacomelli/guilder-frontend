@@ -1,12 +1,17 @@
+import { StackNavigationProp } from "@react-navigation/stack";
 import React from "react";
 import { Text, View } from "react-native";
-import { Table } from "../../types/userData";
+import PrimaryButton from "../../components/view/Buttons/PrimaryButton";
+import { ROUTES } from "../../router/constants";
+import { Character, Table } from "../../types/userData";
 
 type Props = {
   table: Table;
+  character?: Character;
+  navigation: StackNavigationProp<any>;
 };
 
-const GroupInfoTab: React.FC<Props> = ({ table }) => {
+const GroupInfoTab: React.FC<Props> = ({ table, navigation, character }) => {
   const { characters } = table;
   console.log({ characters });
   return (
@@ -26,6 +31,14 @@ const GroupInfoTab: React.FC<Props> = ({ table }) => {
           </View>
         );
       })}
+      {!character && (
+        <PrimaryButton
+          label="Procurar Personagem"
+          onPressHandler={() => {
+            navigation.navigate(ROUTES.SEARCH_CHARACTER, { table });
+          }}
+        />
+      )}
     </View>
   );
 };
