@@ -73,6 +73,7 @@ const ChatTab: React.FC<Props> = ({ character, tableId }) => {
         <TextInput
           style={{
             flex: 1,
+            height: 40,
             borderWidth: 1,
             borderRadius: 5,
             paddingHorizontal: 8,
