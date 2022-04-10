@@ -21,6 +21,14 @@ const Router = () => {
   const Stack = createStackNavigator();
   const dispatch = useDispatch();
 
+  // TODO: refactor to set by default
+  const defaultOptions = {
+    headerTintColor: "#FFFFFF",
+    headerStyle: {
+      backgroundColor: "#9B0000",
+    },
+  };
+
   return (
     <NavigationContainer>
       <Stack.Navigator>
@@ -30,10 +38,7 @@ const Router = () => {
               name={ROUTES.HOME}
               component={HomePage}
               options={{
-                headerTintColor: "#FFFFFF",
-                headerStyle: {
-                  backgroundColor: "#9B0000",
-                },
+                ...defaultOptions,
                 headerRight: () => (
                   <TouchableOpacity
                     onPress={() => dispatch(deleteAuthenticationToken())}
@@ -49,25 +54,41 @@ const Router = () => {
             <Stack.Screen
               name={ROUTES.MANAGE_CHARACTER}
               component={ManageCharacterPage}
+              options={defaultOptions}
             />
             <Stack.Screen
               name={ROUTES.MANAGE_TABLE}
               component={ManageTablePage}
+              options={defaultOptions}
             />
-            <Stack.Screen name={ROUTES.TABLE} component={TablePage} />
+            <Stack.Screen
+              name={ROUTES.TABLE}
+              component={TablePage}
+              options={defaultOptions}
+            />
             <Stack.Screen
               name={ROUTES.SEARCH_CHARACTER}
               component={SearchCharacterPage}
+              options={defaultOptions}
             />
             <Stack.Screen
               name={ROUTES.SEARCH_TABLE}
               component={SearchTablePage}
+              options={defaultOptions}
             />
           </>
         ) : (
           <>
-            <Stack.Screen name={ROUTES.LOGIN} component={LoginPage} />
-            <Stack.Screen name={ROUTES.REGISTER} component={RegisterPage} />
+            <Stack.Screen
+              name={ROUTES.LOGIN}
+              component={LoginPage}
+              options={defaultOptions}
+            />
+            <Stack.Screen
+              name={ROUTES.REGISTER}
+              component={RegisterPage}
+              options={defaultOptions}
+            />
           </>
         )}
       </Stack.Navigator>
