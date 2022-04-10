@@ -38,7 +38,7 @@ const RegisterPage: React.FC<Props> = (props) => {
       <TextInput label="Senha" setValue={setPassword} value={password} />
       <PrimaryButton
         label="Cadastrar"
-        onPressHandler={() => {
+        onPress={() => {
           api
             .createUser(username, password, firstName, lastName)
             .then((response) => {

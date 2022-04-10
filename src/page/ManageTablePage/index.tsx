@@ -1,19 +1,13 @@
 import { StackNavigationProp } from "@react-navigation/stack";
 import React, { useState } from "react";
-import {
-  View,
-  StyleProp,
-  ViewStyle,
-  Button,
-  Alert,
-  ScrollView,
-} from "react-native";
+import { View, StyleProp, ViewStyle, Alert, ScrollView } from "react-native";
 import TextField from "../../components/view/Fields/TextInput";
 import { GuilderApi } from "../../api/GuilderApi";
 import { useSelector } from "react-redux";
 import { getAuthenticationToken } from "../../reducer/selectors/auth";
 import { Table } from "../../types/userData";
 import * as _ from "lodash";
+import PrimaryButton from "../../components/view/Buttons/PrimaryButton";
 
 type Props = {
   navigation: StackNavigationProp<any>;
@@ -60,8 +54,8 @@ const ManageTablePage: React.FC<Props> = (props) => {
         setValue={setTableMaxCharactersString}
       />
       <View style={{ marginBottom: 20 }}>
-        <Button
-          title="Salvar"
+        <PrimaryButton
+          label="Salvar"
           onPress={async () => {
             const response = await guilderApi.saveTable({
               _id: id,

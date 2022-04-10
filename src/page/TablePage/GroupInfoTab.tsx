@@ -34,7 +34,7 @@ const GroupInfoTab: React.FC<Props> = ({ table, navigation, character }) => {
       {!character && (
         <PrimaryButton
           label="Procurar Personagem"
-          onPressHandler={() => {
+          onPress={() => {
             navigation.navigate(ROUTES.SEARCH_CHARACTER, { table });
           }}
         />

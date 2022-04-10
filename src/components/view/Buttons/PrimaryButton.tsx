@@ -1,11 +1,16 @@
 import React from "react";
-import { StyleProp, Text, TextStyle, ViewStyle } from "react-native";
+import {
+  ButtonProps,
+  StyleProp,
+  Text,
+  TextStyle,
+  TouchableOpacityProps,
+  ViewStyle,
+} from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
-type Props = {
+type Props = TouchableOpacityProps & {
   label: string;
-  onPressHandler: () => void;
-  style?: StyleProp<ViewStyle>;
 };
 
 type StylesType = {
@@ -13,7 +18,7 @@ type StylesType = {
   text: StyleProp<TextStyle>;
 };
 
-const styles: StylesType = {
+const defaultStyles: StylesType = {
   wrapper: {
     backgroundColor: "#9B0000",
     paddingVertical: 8,
@@ -25,13 +30,12 @@ const styles: StylesType = {
   text: { color: "#FFFFFF", textAlign: "center" },
 };
 
-const PrimaryButton: React.FC<Props> = ({ onPressHandler, label, style }) => {
+const PrimaryButton: React.FC<Props> = (props) => {
+  const { style, label } = props;
+
   return (
-    <TouchableOpacity
-      style={{ ...(styles.wrapper as object), ...(style as object) }}
-      onPress={onPressHandler}
-    >
-      <Text style={styles.text}>{label}</Text>
+    <TouchableOpacity {...props} style={[defaultStyles.wrapper, style]}>
+      <Text style={defaultStyles.text}>{label}</Text>
     </TouchableOpacity>
   );
 };

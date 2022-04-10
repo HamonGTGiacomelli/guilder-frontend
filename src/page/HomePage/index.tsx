@@ -91,7 +91,7 @@ const HomePage: React.FC<Props> = ({ navigation, route }) => {
       >
         <PrimaryButton
           label="Adicionar Personagem"
-          onPressHandler={() => {
+          onPress={() => {
             navigation.navigate(ROUTES.MANAGE_CHARACTER, {
               callback: () => updateList(),
             });
@@ -99,7 +99,7 @@ const HomePage: React.FC<Props> = ({ navigation, route }) => {
         ></PrimaryButton>
         <PrimaryButton
           label="Adicionar Mesa"
-          onPressHandler={() => {
+          onPress={() => {
             navigation.navigate(ROUTES.MANAGE_TABLE, {
               callback: () => updateList(),
             });

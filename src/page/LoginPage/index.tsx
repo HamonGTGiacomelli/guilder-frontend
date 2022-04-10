@@ -67,7 +67,7 @@ const LoginPage: React.FC<Props> = (props) => {
         value={password}
         secureTextEntry
       />
-      <PrimaryButton label={"Login"} onPressHandler={onLoginClicked} />
+      <PrimaryButton label={"Login"} onPress={onLoginClicked} />
       <LinkButton
         label="Cadastrar-se"
         onPressHandler={onRegisterButtonClicked}

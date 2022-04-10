@@ -90,7 +90,7 @@ const ChatTab: React.FC<Props> = ({ character, tableId }) => {
             }
           }}
         />
-        <PrimaryButton label="Enviar" onPressHandler={handleSendMessage} />
+        <PrimaryButton label="Enviar" onPress={handleSendMessage} />
       </View>
     </View>
   );

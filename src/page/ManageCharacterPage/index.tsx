@@ -1,12 +1,13 @@
 import { StackNavigationProp } from "@react-navigation/stack";
 import React, { useState } from "react";
-import { View, StyleProp, ViewStyle, Button, Alert } from "react-native";
+import { View, StyleProp, ViewStyle, Alert } from "react-native";
 import { useSelector } from "react-redux";
 import { GuilderApi } from "../../api/GuilderApi";
 import { getAuthenticationToken } from "../../reducer/selectors/auth";
 import TextField from "../../components/view/Fields/TextInput";
 import { Character } from "../../types/userData";
 import * as _ from "lodash";
+import PrimaryButton from "../../components/view/Buttons/PrimaryButton";
 
 type Props = {
   navigation: StackNavigationProp<any>;
@@ -54,8 +55,8 @@ const ManageCharacterPage: React.FC<Props> = (props) => {
         setValue={setChartacterBackground}
       />
 
-      <Button
-        title="Salvar"
+      <PrimaryButton
+        label="Salvar"
         onPress={async () => {
           const response = await guilderApi.saveCharacter({
             _id: id,
