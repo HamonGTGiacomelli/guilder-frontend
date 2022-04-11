@@ -1,13 +1,13 @@
 import { StackNavigationProp } from "@react-navigation/stack";
 import React, { useState } from "react";
 import { View, StyleProp, ViewStyle, Alert, ScrollView } from "react-native";
-import TextField from "../../components/view/Fields/TextInput";
+import TextField from "../../components/shared/Fields/TextInput";
 import { GuilderApi } from "../../api/GuilderApi";
 import { useSelector } from "react-redux";
 import { getAuthenticationToken } from "../../reducer/selectors/auth";
 import { Table } from "../../types/userData";
 import * as _ from "lodash";
-import PrimaryButton from "../../components/view/Buttons/PrimaryButton";
+import PrimaryButton from "../../components/shared/Buttons/PrimaryButton";
 
 type Props = {
   navigation: StackNavigationProp<any>;

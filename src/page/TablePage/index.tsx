@@ -2,7 +2,7 @@ import { StackNavigationProp } from "@react-navigation/stack";
 import _ from "lodash";
 import React, { useState } from "react";
 import { View, Text } from "react-native";
-import Tabs from "../../components/view/Tabs";
+import Tabs from "../../components/shared/Tabs";
 import { Table } from "../../types/userData";
 import ChatTab from "./ChatTab";
 import GroupInfoTab from "./GroupInfoTab";

@@ -4,10 +4,10 @@ import { View, StyleProp, ViewStyle, Alert } from "react-native";
 import { useSelector } from "react-redux";
 import { GuilderApi } from "../../api/GuilderApi";
 import { getAuthenticationToken } from "../../reducer/selectors/auth";
-import TextField from "../../components/view/Fields/TextInput";
+import TextField from "../../components/shared/Fields/TextInput";
 import { Character } from "../../types/userData";
 import * as _ from "lodash";
-import PrimaryButton from "../../components/view/Buttons/PrimaryButton";
+import PrimaryButton from "../../components/shared/Buttons/PrimaryButton";
 
 type Props = {
   navigation: StackNavigationProp<any>;

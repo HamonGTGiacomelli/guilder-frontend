@@ -5,7 +5,7 @@ import { addMessage, listenToChat } from "../../api/Firebase";
 import { Character } from "../../types/userData";
 import * as _ from "lodash";
 import ChatMessage from "./ChatMessage";
-import PrimaryButton from "../../components/view/Buttons/PrimaryButton";
+import PrimaryButton from "../../components/shared/Buttons/PrimaryButton";
 
 type Props = {
   tableId: string;

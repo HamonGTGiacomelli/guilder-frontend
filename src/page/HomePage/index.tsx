@@ -5,11 +5,11 @@ import { GuilderApi } from "../../api/GuilderApi";
 import * as _ from "lodash";
 import { useSelector } from "react-redux";
 import { getAuthenticationToken } from "../../reducer/selectors/auth";
-import CharacterCard from "../../components/view/Card/CharacterCard";
-import TableCard from "../../components/view/Card/TableCard";
+import CharacterCard from "../../components/shared/Card/CharacterCard";
+import TableCard from "../../components/shared/Card/TableCard";
 import { FlatList } from "react-native-gesture-handler";
 import { ROUTES } from "../../router/constants";
-import PrimaryButton from "../../components/view/Buttons/PrimaryButton";
+import PrimaryButton from "../../components/shared/Buttons/PrimaryButton";
 
 type Props = {
   navigation: StackNavigationProp<any>;

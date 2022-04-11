@@ -14,10 +14,10 @@ import { GuilderApi } from "../../api/GuilderApi";
 import { addAuthenticationToken } from "../../reducer/actions/auth";
 import { getAuthenticationToken } from "../../reducer/selectors/auth";
 import { ROUTES } from "../../router/constants";
-import TextInput from "../../components/view/Fields/TextInput";
+import TextInput from "../../components/shared/Fields/TextInput";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import PrimaryButton from "../../components/view/Buttons/PrimaryButton";
-import LinkButton from "../../components/view/Buttons/LinkButton";
+import PrimaryButton from "../../components/shared/Buttons/PrimaryButton";
+import LinkButton from "../../components/shared/Buttons/LinkButton";
 
 type Props = {
   navigation: StackNavigationProp<any>;

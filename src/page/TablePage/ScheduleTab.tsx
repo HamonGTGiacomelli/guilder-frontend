@@ -4,7 +4,7 @@ import React, { FC, useEffect, useState } from "react";
 import { Alert, Text, View } from "react-native";
 import { useSelector } from "react-redux";
 import { GuilderApi } from "../../api/GuilderApi";
-import PrimaryButton from "../../components/view/Buttons/PrimaryButton";
+import PrimaryButton from "../../components/shared/Buttons/PrimaryButton";
 import { getAuthenticationToken } from "../../reducer/selectors/auth";
 import { ROUTES } from "../../router/constants";
 import { Schedule, Table } from "../../types/userData";

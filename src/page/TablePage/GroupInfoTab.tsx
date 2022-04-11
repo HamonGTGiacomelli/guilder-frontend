@@ -1,7 +1,7 @@
 import { StackNavigationProp } from "@react-navigation/stack";
 import React from "react";
 import { Text, View } from "react-native";
-import PrimaryButton from "../../components/view/Buttons/PrimaryButton";
+import PrimaryButton from "../../components/shared/Buttons/PrimaryButton";
 import { ROUTES } from "../../router/constants";
 import { Character, Table } from "../../types/userData";
 

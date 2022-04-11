@@ -1,8 +1,8 @@
 import { StackNavigationProp } from "@react-navigation/stack";
 import React, { FC, useState } from "react";
 import { Text, View } from "react-native";
-import PrimaryButton from "../../components/view/Buttons/PrimaryButton";
-import TextField from "../../components/view/Fields/TextInput";
+import PrimaryButton from "../../components/shared/Buttons/PrimaryButton";
+import TextField from "../../components/shared/Fields/TextInput";
 import { format, parse } from "date-fns";
 import { useSelector } from "react-redux";
 import { getAuthenticationToken } from "../../reducer/selectors/auth";
