@@ -1,7 +1,7 @@
 import Axios, { AxiosInstance } from "axios";
 import { useSelector } from "react-redux";
 import { getAuthenticationToken } from "../../reducer/selectors/auth";
-import { Character, Table } from "../../types/userData";
+import { Character, Schedule, Table } from "../../types/userData";
 
 export class GuilderApi {
   api: AxiosInstance;
@@ -122,5 +122,16 @@ export class GuilderApi {
 
   deleteTable(tableId: string) {
     return this.api.delete(`/rpgTable/${tableId}`);
+  }
+
+  getSchedules(tableId: string) {
+    return this.api.get(`/schedule/${tableId}`);
+  }
+
+  saveSchedule(tableId: string, schedule: Schedule) {
+    return this.api.post("/schedule", {
+      tableId,
+      schedule,
+    });
   }
 }

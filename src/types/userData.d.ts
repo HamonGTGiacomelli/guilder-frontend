@@ -16,6 +16,13 @@ export type Table = {
   characters?: Character[];
 };
 
+export type Schedule = {
+  _id?: string;
+  date: string;
+  accepted?: Character[];
+  rejected?: Character[];
+};
+
 export type UserData = {
   _id: string;
   username: string;

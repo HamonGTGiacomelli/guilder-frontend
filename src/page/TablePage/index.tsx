@@ -31,7 +31,7 @@ const TAB_CONFIG = [
 const TablePage: React.FC<Props> = (props) => {
   const { route, navigation } = props;
   const { table, character } = route.params;
-  const { _id, name, description, characters } = table as Table;
+  const { _id } = table as Table;
 
   const [currentTab, setCurrentTab] = useState(TAB_CONFIG[0].id);
 
@@ -40,9 +40,15 @@ const TablePage: React.FC<Props> = (props) => {
       case TAB_CONFIG[0].id:
         return <ChatTab tableId={_id!} character={character} />;
       case TAB_CONFIG[1].id:
-        return <ScheduleTab />;
+        return <ScheduleTab navigation={navigation} tableId={_id!} />;
       default:
-        return <GroupInfoTab navigation={navigation} character={character} table={table} />;
+        return (
+          <GroupInfoTab
+            navigation={navigation}
+            character={character}
+            table={table}
+          />
+        );
     }
   };
 

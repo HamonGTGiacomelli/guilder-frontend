@@ -15,6 +15,7 @@ import { deleteAuthenticationToken } from "../reducer/actions/auth";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import TablePage from "../page/TablePage";
 import { ROUTES } from "./constants";
+import { ManageSchedule } from "../page/ManageSchedule";
 
 const Router = () => {
   const token = useSelector(getAuthenticationToken);
@@ -59,6 +60,11 @@ const Router = () => {
             <Stack.Screen
               name={ROUTES.MANAGE_TABLE}
               component={ManageTablePage}
+              options={defaultOptions}
+            />
+            <Stack.Screen
+              name={ROUTES.MANAGE_SCHEDULE}
+              component={ManageSchedule}
               options={defaultOptions}
             />
             <Stack.Screen
