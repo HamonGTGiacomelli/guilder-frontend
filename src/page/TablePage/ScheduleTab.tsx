@@ -13,9 +13,10 @@ import { Schedule, Table } from "../../types/userData";
 type Props = {
   navigation: StackNavigationProp<any>;
   tableId: string;
+  characterId?: string;
 };
 
-const ScheduleTab: FC<Props> = ({ tableId, navigation }) => {
+const ScheduleTab: FC<Props> = ({ tableId, characterId, navigation }) => {
   const token = useSelector(getAuthenticationToken);
   const [schedules, setSchedules] = useState<Schedule[]>();
 
@@ -54,6 +55,7 @@ const ScheduleTab: FC<Props> = ({ tableId, navigation }) => {
                 key={_id}
                 style={{ marginBottom: 8 }}
                 schedule={schedule}
+                characterId={characterId}
               />
             );
           })

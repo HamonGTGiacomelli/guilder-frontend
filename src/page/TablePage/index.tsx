@@ -40,7 +40,13 @@ const TablePage: React.FC<Props> = (props) => {
       case TAB_CONFIG[0].id:
         return <ChatTab tableId={_id!} character={character} />;
       case TAB_CONFIG[1].id:
-        return <ScheduleTab navigation={navigation} tableId={_id!} />;
+        return (
+          <ScheduleTab
+            navigation={navigation}
+            characterId={character?._id}
+            tableId={_id!}
+          />
+        );
       default:
         return (
           <GroupInfoTab

@@ -134,4 +134,18 @@ export class GuilderApi {
       schedule,
     });
   }
+
+  acceptSchedule(scheduleId: string, characterId?: string) {
+    return this.api.post("/schedule/accept", {
+      scheduleId,
+      characterId,
+    });
+  }
+
+  rejectSchedule(scheduleId: string, characterId?: string) {
+    return this.api.post("/schedule/reject", {
+      scheduleId,
+      characterId,
+    });
+  }
 }

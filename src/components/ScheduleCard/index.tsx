@@ -8,12 +8,16 @@ import {
   ViewProps,
   ViewStyle,
 } from "react-native";
+import { useSelector } from "react-redux";
+import { GuilderApi } from "../../api/GuilderApi";
+import { getAuthenticationToken } from "../../reducer/selectors/auth";
 import { Schedule } from "../../types/userData";
 import CloseIconButton from "../shared/IconButton/CloseIconButton";
 import ConfirmIconButton from "../shared/IconButton/ConfirmIconButton";
 
 type Props = ViewProps & {
   schedule: Schedule;
+  characterId?: string;
 };
 
 const defaultStyle: StyleProp<ViewStyle> = {
@@ -26,8 +30,19 @@ const defaultStyle: StyleProp<ViewStyle> = {
   flexDirection: "row",
 };
 
-const ScheduleCard: FC<Props> = ({ schedule, style }) => {
+const ScheduleCard: FC<Props> = ({ schedule, characterId, style }) => {
+  const token = useSelector(getAuthenticationToken);
+  const guilderApi = new GuilderApi(token);
+
   const { date } = schedule;
+
+  const handleAcceptSchedule = () => {
+    guilderApi.acceptSchedule(schedule._id!, characterId);
+  };
+
+  const handleRejectSchedule = () => {
+    guilderApi.rejectSchedule(schedule._id!, characterId);
+  };
 
   return (
     <View style={[defaultStyle, style]}>
@@ -37,9 +52,9 @@ const ScheduleCard: FC<Props> = ({ schedule, style }) => {
       <View style={{ display: "flex", flexDirection: "row" }}>
         <ConfirmIconButton
           style={{ marginRight: 4 }}
-          onPress={() => console.log("confirm")}
+          onPress={handleAcceptSchedule}
         />
-        <CloseIconButton onPress={() => console.log("confirm")} />
+        <CloseIconButton onPress={handleRejectSchedule} />
       </View>
     </View>
   );
