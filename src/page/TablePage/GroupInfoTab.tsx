@@ -13,7 +13,7 @@ type Props = {
 
 const GroupInfoTab: React.FC<Props> = ({ table, navigation, character }) => {
   const { characters } = table;
-  console.log({ characters });
+  
   return (
     <View style={{ paddingVertical: 16 }}>
       {characters?.map((character) => {

@@ -35,8 +35,6 @@ export const ManageSchedule: FC<Props> = ({ navigation, route }) => {
     guilderApi.saveSchedule(tableId, schedule);
   };
 
-  console.log({ tableId });
-
   let formattedDate;
 
   // use to the call

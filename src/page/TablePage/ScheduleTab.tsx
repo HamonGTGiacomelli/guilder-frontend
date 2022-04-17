@@ -30,7 +30,6 @@ const ScheduleTab: FC<Props> = ({ tableId, characterId, navigation }) => {
   }, []);
 
   const handleOnAddSchedulePress = () => {
-    console.log({ tableId });
     navigation.push(ROUTES.MANAGE_SCHEDULE, { tableId });
   };
 

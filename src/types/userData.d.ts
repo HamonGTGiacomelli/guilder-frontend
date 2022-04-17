@@ -19,8 +19,9 @@ export type Table = {
 export type Schedule = {
   _id?: string;
   date: string;
-  accepted?: Character[];
-  rejected?: Character[];
+  isMasterAccepted?: boolean;
+  accepted?: (Character | string)[];
+  rejected?: (Character | string)[];
 };
 
 export type UserData = {
