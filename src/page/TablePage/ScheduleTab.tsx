@@ -22,11 +22,15 @@ const ScheduleTab: FC<Props> = ({ tableId, characterId, navigation }) => {
 
   const guilderApi = new GuilderApi(token);
 
-  useEffect(() => {
+  const fetchList = () => {
     guilderApi.getSchedules(tableId).then((res) => {
       const { data } = res;
       setSchedules(data);
     });
+  };
+
+  useEffect(() => {
+    fetchList();
   }, []);
 
   const handleOnAddSchedulePress = () => {
@@ -55,6 +59,8 @@ const ScheduleTab: FC<Props> = ({ tableId, characterId, navigation }) => {
                 style={{ marginBottom: 8 }}
                 schedule={schedule}
                 characterId={characterId}
+                onAccept={fetchList}
+                onReject={fetchList}
               />
             );
           })

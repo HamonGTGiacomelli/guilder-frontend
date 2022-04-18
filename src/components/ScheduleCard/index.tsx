@@ -20,6 +20,8 @@ import ConfirmIconButton from "../shared/IconButton/ConfirmIconButton";
 type Props = ViewProps & {
   schedule: Schedule;
   characterId?: string;
+  onAccept: () => void;
+  onReject: () => void;
 };
 
 const defaultStyle: StyleProp<ViewStyle> = {
@@ -44,13 +46,17 @@ const summaryIconStyle: StyleProp<ImageStyle> = {
   marginRight: 4,
 };
 
-const ScheduleCard: FC<Props> = ({ schedule, characterId, style }) => {
+const ScheduleCard: FC<Props> = ({
+  schedule,
+  characterId,
+  style,
+  onAccept,
+  onReject,
+}) => {
   const token = useSelector(getAuthenticationToken);
   const guilderApi = new GuilderApi(token);
 
   const { date, accepted, rejected, isMasterAccepted } = schedule;
-
-  console.log({ characterId, accepted });
 
   let userAccepted;
   let userRejected;
@@ -68,10 +74,12 @@ const ScheduleCard: FC<Props> = ({ schedule, characterId, style }) => {
 
   const handleAcceptSchedule = () => {
     guilderApi.acceptSchedule(schedule._id!, characterId);
+    onAccept();
   };
 
   const handleRejectSchedule = () => {
     guilderApi.rejectSchedule(schedule._id!, characterId);
+    onReject();
   };
 
   return (
@@ -102,14 +110,16 @@ const ScheduleCard: FC<Props> = ({ schedule, characterId, style }) => {
               style={summaryIconStyle}
               source={require("../../../assets/check-mark.png")}
             />
-            <Text>{accepted?.length}</Text>
+            <Text>{(accepted?.length || 0) + (isMasterAccepted ? 1 : 0)}</Text>
           </View>
           <View style={flexRowCenter}>
             <Image
               style={summaryIconStyle}
               source={require("../../../assets/close.png")}
             />
-            <Text>{rejected?.length}</Text>
+            <Text>
+              {(rejected?.length || 0) + (isMasterAccepted === false ? 1 : 0)}
+            </Text>
           </View>
         </View>
       </View>
