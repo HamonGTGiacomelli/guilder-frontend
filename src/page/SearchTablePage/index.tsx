@@ -1,8 +1,10 @@
 import { StackNavigationProp } from "@react-navigation/stack";
 import React, { useEffect, useState } from "react";
-import { Button, Text, View } from "react-native";
+import { Button, Image, Text, View } from "react-native";
 import { useSelector } from "react-redux";
 import { GuilderApi } from "../../api/GuilderApi";
+import LinkButton from "../../components/shared/Buttons/LinkButton";
+import PrimaryButton from "../../components/shared/Buttons/PrimaryButton";
 import { getAuthenticationToken } from "../../reducer/selectors/auth";
 
 type Props = {
@@ -38,30 +40,54 @@ const SearchTablePage: React.FC<Props> = ({ route }) => {
   const currentTable = availableTables[0] || [];
 
   return (
-    <View>
+    <View style={{ flex: 1, paddingHorizontal: 16 }}>
       {isLoading ? (
         <Text>Loading</Text>
       ) : availableTables.length > 0 ? (
         <>
-          <Text>{currentTable.name}</Text>
-          <Text>{currentTable.description}</Text>
+          <View
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              marginVertical: 16,
+            }}
+          >
+            <View
+              style={{ borderRadius: 100, borderWidth: 1, overflow: "hidden" }}
+            >
+              <Image
+                style={{ height: 200, width: 200 }}
+                source={require("../../../assets/table.png")}
+              />
+            </View>
+          </View>
+          <Text>
+            <Text style={{ fontWeight: "bold" }}>Nome:</Text>{" "}
+            {currentTable.name}
+          </Text>
+          <Text>
+            <Text style={{ fontWeight: "bold" }}>Descrição:</Text>{" "}
+            {currentTable.description}
+          </Text>
           <View
             style={{
               display: "flex",
               flexDirection: "row",
               justifyContent: "space-between",
+              marginVertical: 16,
             }}
           >
-            <Button
-              title="Aceitar"
+            <PrimaryButton
+              label="Aceitar"
               onPress={() => {
                 api.acceptAvailableTable(character._id, currentTable._id);
                 removeCurrentFromList();
               }}
             />
-            <Button
-              title="Rejeitar"
-              onPress={() => {
+            <LinkButton
+              label="Rejeitar"
+              onPressHandler={() => {
                 api.rejectAvailableTable(character._id, currentTable._id);
                 removeCurrentFromList();
               }}
@@ -69,7 +95,18 @@ const SearchTablePage: React.FC<Props> = ({ route }) => {
           </View>
         </>
       ) : (
-        <Text>Não há mais mesas disponiveis</Text>
+        <View
+          style={{
+            flex: 1,
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <Text style={{ fontSize: 24, textAlign: "center" }}>
+            Não há mais mesas disponiveis. Procure novamente mais tarde.
+          </Text>
+        </View>
       )}
     </View>
   );

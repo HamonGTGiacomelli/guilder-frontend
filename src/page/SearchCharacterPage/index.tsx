@@ -1,8 +1,10 @@
 import { StackNavigationProp } from "@react-navigation/stack";
 import React, { useEffect, useState } from "react";
-import { Alert, Button, Text, View } from "react-native";
+import { Alert, Button, Image, Text, View } from "react-native";
 import { useSelector } from "react-redux";
 import { GuilderApi } from "../../api/GuilderApi";
+import LinkButton from "../../components/shared/Buttons/LinkButton";
+import PrimaryButton from "../../components/shared/Buttons/PrimaryButton";
 import { getAuthenticationToken } from "../../reducer/selectors/auth";
 
 type Props = {
@@ -38,30 +40,55 @@ const SearchCharacterPage: React.FC<Props> = ({ route }) => {
   const currentCharacter = availableCharacters[0] || [];
 
   return (
-    <View>
+    <View style={{ flex: 1, paddingHorizontal: 16 }}>
       {isLoading ? (
         <Text>Loading</Text>
       ) : availableCharacters.length > 0 ? (
         <>
-          <Text>{currentCharacter.name}</Text>
-          <Text>{currentCharacter.description}</Text>
+          <View
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              marginVertical: 16,
+            }}
+          >
+            <View
+              style={{ borderRadius: 100, borderWidth: 1, overflow: "hidden" }}
+            >
+              <Image
+                style={{ height: 200, width: 200 }}
+                source={require("../../../assets/user.png")}
+              />
+            </View>
+          </View>
+
+          <Text>
+            <Text style={{ fontWeight: "bold" }}>Nome:</Text>{" "}
+            {currentCharacter.name}
+          </Text>
+          <Text>
+            <Text style={{ fontWeight: "bold" }}>Descrição:</Text>{" "}
+            {currentCharacter.description}
+          </Text>
           <View
             style={{
               display: "flex",
               flexDirection: "row",
               justifyContent: "space-between",
+              marginVertical: 16,
             }}
           >
-            <Button
-              title="Aceitar"
+            <PrimaryButton
+              label="Aceitar"
               onPress={() => {
                 api.acceptAvailableCharacter(table._id, currentCharacter._id);
                 removeCurrentFromList();
               }}
             />
-            <Button
-              title="Rejeitar"
-              onPress={() => {
+            <LinkButton
+              label="Rejeitar"
+              onPressHandler={() => {
                 api.rejectAvailableCharacter(table._id, currentCharacter._id);
                 removeCurrentFromList();
               }}
@@ -69,7 +96,18 @@ const SearchCharacterPage: React.FC<Props> = ({ route }) => {
           </View>
         </>
       ) : (
-        <Text>Não há mais personagens disponiveis</Text>
+        <View
+          style={{
+            flex: 1,
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <Text style={{ fontSize: 24, textAlign: "center" }}>
+            Não há mais personagens disponiveis. Procure novamente mais tarde.
+          </Text>
+        </View>
       )}
     </View>
   );
