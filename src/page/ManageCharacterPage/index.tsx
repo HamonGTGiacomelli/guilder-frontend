@@ -45,12 +45,12 @@ const ManageCharacterPage: React.FC<Props> = (props) => {
       />
 
       <TextField
-        label="Description"
+        label="Descrição do Personagem"
         value={characterDescription}
         setValue={setCharacterDescription}
       />
       <TextField
-        label="Background"
+        label="História do Personagem"
         value={chartacterBackground}
         setValue={setChartacterBackground}
       />

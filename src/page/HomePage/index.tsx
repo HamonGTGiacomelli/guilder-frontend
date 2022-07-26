@@ -1,6 +1,6 @@
 import { StackNavigationProp } from "@react-navigation/stack";
 import React, { useEffect, useState } from "react";
-import { Button, RefreshControl, View } from "react-native";
+import { Button, RefreshControl, Text, View } from "react-native";
 import { GuilderApi } from "../../api/GuilderApi";
 import * as _ from "lodash";
 import { useSelector } from "react-redux";
@@ -55,32 +55,49 @@ const HomePage: React.FC<Props> = ({ navigation, route }) => {
     return () => {};
   }, []);
 
+  const mergedList = mergeTablesAndCharacter(user.characters, user.rpgTables);
+
   return (
     <View style={homePageStyle}>
-      <FlatList
-        data={mergeTablesAndCharacter(user.characters, user.rpgTables)}
-        renderItem={({ item }) =>
-          item.isCharacter ? (
-            <CharacterCard
-              key={item._id}
-              character={item}
-              navigation={navigation}
-              triggerUpdateList={() => updateList()}
-            />
-          ) : (
-            <TableCard
-              key={item._id}
-              table={item}
-              navigation={navigation}
-              triggerUpdateList={() => updateList()}
-            />
-          )
-        }
-        keyExtractor={(item) => item._id}
-        refreshControl={
-          <RefreshControl refreshing={isLoading} onRefresh={updateList} />
-        }
-      />
+      {mergedList.length > 0 ? (
+        <FlatList
+          data={mergedList}
+          renderItem={({ item }) =>
+            item.isCharacter ? (
+              <CharacterCard
+                key={item._id}
+                character={item}
+                navigation={navigation}
+                triggerUpdateList={() => updateList()}
+              />
+            ) : (
+              <TableCard
+                key={item._id}
+                table={item}
+                navigation={navigation}
+                triggerUpdateList={() => updateList()}
+              />
+            )
+          }
+          keyExtractor={(item) => item._id}
+          refreshControl={
+            <RefreshControl refreshing={isLoading} onRefresh={updateList} />
+          }
+        />
+      ) : (
+        <View
+          style={{
+            flex: 1,
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <Text style={{ fontSize: 24, textAlign: "center" }}>
+            Crie um novo personagem ou uma nova mesa para começar.
+          </Text>
+        </View>
+      )}
       <View
         style={{
           margin: 10,
@@ -90,7 +107,7 @@ const HomePage: React.FC<Props> = ({ navigation, route }) => {
         }}
       >
         <PrimaryButton
-          label="Adicionar Personagem"
+          label="Criar Personagem"
           onPress={() => {
             navigation.navigate(ROUTES.MANAGE_CHARACTER, {
               callback: () => updateList(),
@@ -98,7 +115,7 @@ const HomePage: React.FC<Props> = ({ navigation, route }) => {
           }}
         ></PrimaryButton>
         <PrimaryButton
-          label="Adicionar Mesa"
+          label="Criar Mesa"
           onPress={() => {
             navigation.navigate(ROUTES.MANAGE_TABLE, {
               callback: () => updateList(),

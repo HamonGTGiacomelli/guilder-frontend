@@ -71,6 +71,10 @@ const SearchCharacterPage: React.FC<Props> = ({ route }) => {
             <Text style={{ fontWeight: "bold" }}>Descrição:</Text>{" "}
             {currentCharacter.description}
           </Text>
+          <Text>
+            <Text style={{ fontWeight: "bold" }}>História:</Text>{" "}
+            {currentCharacter.background}
+          </Text>
           <View
             style={{
               display: "flex",

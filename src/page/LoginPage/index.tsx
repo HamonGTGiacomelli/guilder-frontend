@@ -60,9 +60,9 @@ const LoginPage: React.FC<Props> = (props) => {
 
   return (
     <View style={wrapperStyles}>
-      <TextInput label="Username" setValue={setUsername} value={username} />
+      <TextInput label="Usuário" setValue={setUsername} value={username} />
       <TextInput
-        label="Password"
+        label="Senha"
         setValue={setPassword}
         value={password}
         secureTextEntry

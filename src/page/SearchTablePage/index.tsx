@@ -66,10 +66,12 @@ const SearchTablePage: React.FC<Props> = ({ route }) => {
             <Text style={{ fontWeight: "bold" }}>Nome:</Text>{" "}
             {currentTable.name}
           </Text>
-          <Text>
-            <Text style={{ fontWeight: "bold" }}>Descrição:</Text>{" "}
-            {currentTable.description}
-          </Text>
+          <View style={{ maxHeight: 200, overflow: 'hidden' }}>
+            <Text>
+              <Text style={{ fontWeight: "bold" }}>Descrição:</Text>{" "}
+              {currentTable.description}
+            </Text>
+          </View>
           <View
             style={{
               display: "flex",

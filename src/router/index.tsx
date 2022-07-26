@@ -45,7 +45,7 @@ const Router = () => {
                     onPress={() => dispatch(deleteAuthenticationToken())}
                   >
                     <Image
-                      source={require("../../assets/logout.png")}
+                      source={require("../../assets/logout-white.png")}
                       style={{ maxHeight: 24, maxWidth: 24, marginRight: 16 }}
                     />
                   </TouchableOpacity>
@@ -55,32 +55,32 @@ const Router = () => {
             <Stack.Screen
               name={ROUTES.MANAGE_CHARACTER}
               component={ManageCharacterPage}
-              options={defaultOptions}
+              options={{...defaultOptions, title: 'Personagem'}}
             />
             <Stack.Screen
               name={ROUTES.MANAGE_TABLE}
               component={ManageTablePage}
-              options={defaultOptions}
+              options={{...defaultOptions, title: 'Mesa'}}
             />
             <Stack.Screen
               name={ROUTES.MANAGE_SCHEDULE}
               component={ManageSchedule}
-              options={defaultOptions}
+              options={{...defaultOptions, title: 'Agendamento'}}
             />
             <Stack.Screen
               name={ROUTES.TABLE}
               component={TablePage}
-              options={defaultOptions}
+              options={{...defaultOptions, title: 'Mesa'}}
             />
             <Stack.Screen
               name={ROUTES.SEARCH_CHARACTER}
               component={SearchCharacterPage}
-              options={defaultOptions}
+              options={{...defaultOptions, title: 'Procurar Personagem'}}
             />
             <Stack.Screen
               name={ROUTES.SEARCH_TABLE}
               component={SearchTablePage}
-              options={defaultOptions}
+              options={{...defaultOptions, title: 'Procurar Mesa'}}
             />
           </>
         ) : (
@@ -93,7 +93,7 @@ const Router = () => {
             <Stack.Screen
               name={ROUTES.REGISTER}
               component={RegisterPage}
-              options={defaultOptions}
+              options={{...defaultOptions, title: 'Cadastro'}}
             />
           </>
         )}

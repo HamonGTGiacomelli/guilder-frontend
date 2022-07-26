@@ -6,7 +6,10 @@ import { persistReducer, persistStore } from "redux-persist";
 import { PersistGate } from "redux-persist/integration/react";
 import AsyncStorage from "@react-native-community/async-storage";
 import Router from "./src/router";
+import { LogBox } from "react-native";
 
+
+LogBox.ignoreAllLogs()
 const persistConfig = {
   key: "root",
   storage: AsyncStorage,

@@ -19,11 +19,11 @@ const TAB_CONFIG = [
     id: "Chat",
   },
   {
-    label: "S",
+    label: "A",
     id: "Agendamento",
   },
   {
-    label: "I",
+    label: "P",
     id: "Personagens",
   },
 ];

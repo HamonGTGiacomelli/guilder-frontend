@@ -25,7 +25,7 @@ const ManageTablePage: React.FC<Props> = (props) => {
   const { callback, table } = params;
   const token = useSelector(getAuthenticationToken);
   const id = _.get(table, "_id");
-  const title = _.get(table, "title", "");
+  const title = _.get(table, "name", "");
   const description = _.get(table, "description", "");
   const maxCharacterString = _.get(table, "maxCharacters", "").toString();
   const [tableTitle, setTableTitle] = useState(title);
@@ -66,7 +66,6 @@ const ManageTablePage: React.FC<Props> = (props) => {
 
             if (response) {
               Alert.alert("Personagem Salvo com Suceesso!", "Sucesso!");
-              navigation.goBack();
               callback();
             } else {
               Alert.alert(

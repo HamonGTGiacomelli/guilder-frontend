@@ -15,7 +15,7 @@ const GroupInfoTab: React.FC<Props> = ({ table, navigation, character }) => {
   const { characters } = table;
   
   return (
-    <View style={{ paddingVertical: 16 }}>
+    <View style={{ paddingVertical: 16, display: 'flex' }}>
       {characters?.map((character) => {
         return (
           <View
@@ -23,6 +23,8 @@ const GroupInfoTab: React.FC<Props> = ({ table, navigation, character }) => {
               borderWidth: 1,
               backgroundColor: "#FFFFFF",
               borderRadius: 8,
+              marginVertical: 8,
+              padding: 4,
             }}
           >
             <Text style={{ color: "#000000", textAlign: "center" }}>

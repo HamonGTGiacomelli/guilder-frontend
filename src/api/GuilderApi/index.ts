@@ -52,7 +52,7 @@ export class GuilderApi {
 
   saveCharacter(chracter: Character) {
     if (chracter._id) {
-      this.api.put("/character", chracter);
+      return this.api.put("/character", chracter);
     }
     return this.api.post("/character", chracter);
   }
